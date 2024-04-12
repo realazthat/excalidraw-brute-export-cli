@@ -19,15 +19,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Set up Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20.12.1
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
         python-version: 3.8
-    - name: Install nvm
-      run: |
-        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
     - name: Install Bash (Ubuntu)
-      run: sudo apt-get update && sudo apt-get install -y bash grep xxd git xxhash
+      run: sudo apt-get update && sudo apt-get install -y bash grep xxd git xxhash rsync
+    # - name: Install nvm
+    #   run: |
+    #     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
     - name: Run everything
       run: |
+        npm install
+        npx playwright install-deps
+        npx playwright install
         bash scripts/pre.sh

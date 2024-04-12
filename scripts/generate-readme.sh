@@ -20,6 +20,7 @@ PYTHON_VERSION_PATH=${PWD}/scripts/.python-version \
 bash scripts/format.sh
 
 rm -f "${PROJ_PATH}/README.md" || true
+touch "${PROJ_PATH}/README.md"
 python -m snipinator.cli \
   -t "${PROJ_PATH}/README.md.jinja2" \
   -o "${PROJ_PATH}/README.md" \

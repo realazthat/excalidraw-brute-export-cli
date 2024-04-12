@@ -33,11 +33,13 @@ find "${TMP_PROJ_PATH}" -type f -not -path '*/.*' -exec chmod 777 {} +
 ################################################################################
 # Install excalidraw-brute-export-cli and run smoke test
 
-cd "${TMP_DIR}"
-cp "${TMP_PROJ_PATH}/.nvmrc" .
 
-npm install  --prefix ./ "${TMP_PROJ_PATH}"
-ls -la ./ "${TMP_DIR}"
+cd "${TMP_PROJ_PATH}"
+TARBALL_NAME=$(npm pack)
+TARBALL="${TMP_PROJ_PATH}/${TARBALL_NAME}"
+
+cd "${TMP_DIR}"
+npm --prefix "${TMP_DIR}" install "${TARBALL}"
 echo -e "${GREEN}Success: excalidraw-brute-export-cli installed successfully${NC}"
 
 npx --no-install excalidraw-brute-export-cli --version
