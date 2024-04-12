@@ -1,0 +1,19 @@
+
+[project]
+name = "excalidraw_brute_export_cli_dev"
+version = "0.1.0"
+
+[project.optional-dependencies]
+# Set of dependencies that are known to work. To add a new dependency here, add
+# a version range to the `projecct.dependencies` section above, and then run
+# `EXTRA=prod bash scripts/utilties/pin-extra-reqs.sh`. Optionally, delete all the
+# contents to repin all the dependencies (probably a good idea to do once in a
+# while).
+prod = []
+# Set of dev dependencies, all pinned, so that they are known to work. To add a
+# new dependency here, add the unpinned package name here, and then run
+# `EXTRA=dev bash scripts/utilties/pin-extra-reqs.sh`.
+dev = [
+  "snipinator==1.2.0",
+  "pre-commit==3.5.0",
+]

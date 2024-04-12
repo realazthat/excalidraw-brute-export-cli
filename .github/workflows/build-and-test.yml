@@ -1,0 +1,33 @@
+name: Build and Test
+
+permissions: read-all
+
+on:
+  push:
+    branches:
+    - master
+    - develop
+    - gh-actions-test
+  pull_request:
+    branches:
+    - master
+    - develop
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.8
+    - name: Install nvm
+      run: |
+        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+    - name: Install Bash (Ubuntu)
+      run: sudo apt-get update && sudo apt-get install -y bash grep xxd git xxhash
+    - name: Run everything
+      run: |
+        bash scripts/pre.sh

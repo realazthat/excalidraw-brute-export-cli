@@ -1,0 +1,19 @@
+{
+  "name": "excalidraw-brute-export-cli",
+  "bin": {
+    "excalidraw-brute-export-cli": "./src/main.js"
+  },
+  "type": "module",
+  "version": "0.1.1",
+  "scripts": {
+    "format": "npx prettier --write src/ && npx prettier --write --parser markdown \"LICENSE.md\" \"README.md.jinja2\" --write",
+    "prepublishOnly": "git diff --cached --name-only | xargs npm pack --dry-run"
+  },
+  "dependencies": {
+    "@caporal/core": "^2.0.7",
+    "playwright": "^1.43.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5"
+  }
+}
