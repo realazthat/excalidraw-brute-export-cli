@@ -6,6 +6,7 @@ const { program } = caporal;
 import { fileURLToPath } from "url";
 import { cwd } from "node:process";
 import { mkdir } from "fs/promises";
+import { version } from "../lib/version.js";
 
 // get the resolved path to the file
 const __filename = fileURLToPath(import.meta.url);
@@ -34,11 +35,8 @@ async function amain({ options, logger }) {
     logger.info("logger.info('amain')");
     logger.info("options:", options);
 
-    const t0 = Date.now();
-
     const input /*: string */ = options.input;
     const output /*: string */ = options.output;
-    const port /*: number */ = options.port;
     const excalidrawURL = options.url;
     const outputFileName = path.basename(output);
 
@@ -161,11 +159,6 @@ async function amain({ options, logger }) {
     logger.info("closing...");
     await page.close();
     await browser.close();
-    const t1 = Date.now();
-
-    const delta = t1 - t0;
-    const deltaSeconds = delta / 1000;
-    logger.info(`Took ${deltaSeconds.toFixed(2)} seconds.`);
   } catch (e) {
     logger.error("Error:", e);
     process.exit(1);
@@ -174,7 +167,7 @@ async function amain({ options, logger }) {
 
 program
   .bin("excalidraw-brute-export-cli")
-  .version("0.1.0")
+  .version(version)
   .description(
     "Export Excalidraw using a (headless) browser via the command line.",
   )

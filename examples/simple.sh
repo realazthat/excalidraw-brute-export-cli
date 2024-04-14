@@ -7,10 +7,10 @@ npx excalidraw-brute-export-cli \
   -i ./examples/simple.excalidraw \
   --background 1 \
   --embed-scene 1 \
-  --embed-scene 1 \
+  --dark-mode 0 \
   --scale 1 \
   --format png \
   -o "${PWD}/.deleteme/output.png" \
   --verbose
 
-ls -la "${PWD}/.deleteme/output.png"
+ls "${PWD}/.deleteme/output.png"

@@ -6,8 +6,7 @@ SCRIPT_DIR=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
 source "${SCRIPT_DIR}/utilities/common.sh"
 
 
-
-
+npm run genversion
 bash scripts/run-all-examples.sh
 bash scripts/format.sh
 bash scripts/generate-readme.sh

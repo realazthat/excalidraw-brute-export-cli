@@ -39,7 +39,7 @@ TARBALL_NAME=$(npm pack)
 TARBALL="${TMP_PROJ_PATH}/${TARBALL_NAME}"
 
 cd "${TMP_DIR}"
-npm --prefix "${TMP_DIR}" install "${TARBALL}"
+npm install "${TARBALL}"
 echo -e "${GREEN}Success: excalidraw-brute-export-cli installed successfully${NC}"
 
 npx --no-install excalidraw-brute-export-cli --version
