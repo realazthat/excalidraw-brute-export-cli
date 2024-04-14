@@ -44,7 +44,7 @@ SOURCE: `README.md.jinja2`.
 npm install -g excalidraw-brute-export-cli
 
 # Or clone and install
-git clone https://github.com/realazthat/excalidraw-brute-export-cli.git@v0.1.1
+git clone https://github.com/realazthat/excalidraw-brute-export-cli.git@v0.2.0
 cd excalidraw-brute-export-cli
 npm install
 
