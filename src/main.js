@@ -53,6 +53,9 @@ async function amain({ options, logger }) {
     });
     const context = await browser.newContext();
     page = await context.newPage();
+    if (options.timeout >= 0) {
+      page.setDefaultTimeout(options.timeout);
+    }
     page.on("console", (msg) => logger.info(msg.text()));
 
     // Set screen size
@@ -226,6 +229,14 @@ program
     {
       validator: program.STRING,
       default: "",
+    },
+  )
+  .option(
+    "--timeout [timeout]",
+    "Timeout (in milliseconds) for each action in playwright. 0 for infinite timeout. -1 for no specific timeout, which uses playwright's default timeout. Defaults to -1.",
+    {
+      validator: program.INTEGER,
+      default: -1,
     },
   )
   .action(({ args, options, logger }) => {
