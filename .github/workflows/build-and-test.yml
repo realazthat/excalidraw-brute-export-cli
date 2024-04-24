@@ -27,8 +27,15 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: 3.8.0
-    - name: Install Bash (Ubuntu)
-      run: sudo apt-get update && sudo apt-get install -y bash grep xxd git xxhash rsync
+    - name: Install Bash and other dependencies (Ubuntu)
+      # * bash: scripts.
+      # * xxd: tests.
+      # * git: scripts, tests.
+      # * xxhash: changeguard.
+      # * rsync: out-of-directory test.
+      # * grep: tests.
+      # * expect: for `unbuffer`, useful to grab and compare ansi color symbols.
+      run: sudo apt-get update && sudo apt-get install -y bash grep xxd git xxhash rsync expect
     # - name: Install nvm
     #   run: |
     #     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
@@ -36,5 +43,5 @@ jobs:
       run: |
         npm install
         npx playwright install-deps
-        npx playwright install
+        npx playwright install firefox
         bash scripts/pre.sh

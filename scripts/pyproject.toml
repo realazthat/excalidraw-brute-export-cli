@@ -1,4 +1,3 @@
-
 [project]
 name = "excalidraw_brute_export_cli_dev"
 version = "0.1.0"
@@ -14,6 +13,32 @@ prod = []
 # new dependency here, add the unpinned package name here, and then run
 # `EXTRA=dev bash scripts/utilties/pin-extra-reqs.sh`.
 dev = [
-  "snipinator==1.2.0",
+  "cfgv==3.4.0",
+  "changeguard==0.3.1",
+  "colorama==0.4.6",
+  "defusedxml==0.7.1",
+  "distlib==0.3.8",
+  "filelock==3.13.4",
+  "identify==2.5.35",
+  "jinja2==3.1.3",
+  "markdown-it-py==3.0.0",
+  "markupsafe==2.1.5",
+  "mdurl==0.1.2",
+  "nodeenv==1.8.0",
+  "pathspec==0.12.1",
+  "pexpect==4.9.0",
+  "platformdirs==4.2.0",
   "pre-commit==3.5.0",
+  "ptyprocess==0.7.0",
+  "pygments==2.17.2",
+  "pyyaml==6.0.1",
+  "rich==13.7.1",
+  "rich-argparse==1.4.0",
+  "snipinator==1.2.0",
+  "toml-sort==0.23.1",
+  "tomlkit==0.12.4",
+  "types-colorama==0.4.15.20240311",
+  "types-pyyaml==6.0.12.20240311",
+  "typing-extensions==4.11.0",
+  "virtualenv==20.25.3"
 ]

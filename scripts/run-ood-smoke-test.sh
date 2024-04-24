@@ -42,6 +42,8 @@ cd "${TMP_DIR}"
 npm install "${TARBALL}"
 echo -e "${GREEN}Success: excalidraw-brute-export-cli installed successfully${NC}"
 
+npx playwright install firefox
+
 npx --no-install excalidraw-brute-export-cli --version
 npx --no-install excalidraw-brute-export-cli --help
 echo -e "${GREEN}Success: excalidraw-brute-export-cli smoke test ran successfully${NC}"

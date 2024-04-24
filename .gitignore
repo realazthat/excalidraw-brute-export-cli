@@ -1,7 +1,7 @@
 NOTES.md
 jsconfig.json
-.cache/
-node_modules/
+.cache
+node_modules
 screenshots/
 .deleteme/
 *.egg-info/

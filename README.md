@@ -50,12 +50,16 @@ npm install
 
 # Might prompt for root.
 npx playwright install-deps
-npx playwright install
+npx playwright install firefox
 ```
 
 Example:
 
-<!----><img src="README.simple.sh.generated.svg" alt="Output of `./examples/simple.sh`" /><!---->
+<!----><img src="README.example.terminal.svg" alt="Output of `./examples/simple.sh`" /><!---->
+
+And the resulting image (svg):
+
+<img src="./README.example.output.svg" alt="Simple Excalidraw Diagram as a SVG" width="400" />
 
 CLI usage help:
 

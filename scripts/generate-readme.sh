@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # https://gist.github.com/mohanpedala/1e2ff5661761d3abd0385e8223e16425
 set -e -x -v -u -o pipefail
 
@@ -18,6 +17,29 @@ PYTHON_VERSION_PATH=${PWD}/scripts/.python-version \
 ################################################################################
 
 bash scripts/format.sh
+
+# FORCE_COLOR and TERM are set, to produce consistent results across different
+# systems.
+#
+# Explanation:
+#
+# @caporal/core is used for argument parsing.
+#
+# chalk/chalk, via @caporal/core, uses an internal copy of the supports-color
+# library (https://github.com/chalk/supports-color) here:
+# <https://github.com/chalk/chalk/blob/main/source/vendor/supports-color/index.js>.
+#
+# supports-color is terminal-emulator-dependent.
+#
+# But we want it to produce consistent results for the README output.
+#
+# To do this, we set the FORCE_COLOR environment variable to 3.
+#
+# However, this older version of supports-color does not always listen to
+# FORCE_COLOR, so we also have to set TERM to 'dumb'.
+export FORCE_COLOR=3
+export TERM=dumb
+
 
 rm -f "${PROJ_PATH}/README.md" || true
 touch "${PROJ_PATH}/README.md"

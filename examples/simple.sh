@@ -10,7 +10,7 @@ npx excalidraw-brute-export-cli \
   --dark-mode 0 \
   --scale 1 \
   --format png \
-  -o "${PWD}/.deleteme/output.png" \
+  -o "./.deleteme/output.png" \
   --verbose
 
-ls "${PWD}/.deleteme/output.png"
+ls "./.deleteme/output.png"

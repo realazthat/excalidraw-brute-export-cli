@@ -45,18 +45,21 @@ npm install
 
 # Might prompt for root.
 npx playwright install-deps
-npx playwright install
+npx playwright install firefox
 ```
 
 Example:
 
-<!--{{ shell('./examples/simple.sh',
-             rich='README.simple.sh.generated.svg',
+<!--{{ shell('npx --no-install excalidraw-brute-export-cli -i ./examples/simple.excalidraw --background 1 --embed-scene 0 --dark-mode 0 --scale 1 --format svg -o "./README.example.output.svg" --verbose',
+             rich='README.example.terminal.svg',
              rich_alt='Output of `./examples/simple.sh`',
              rich_bg_color='black',
-             rich_term='xterm-256color',
              rich_cols=160,
              decomentify=True) }}-->
+
+And the resulting image (svg):
+
+<img src="./README.example.output.svg" alt="Simple Excalidraw Diagram as a SVG" width="400" />
 
 CLI usage help:
 
@@ -64,7 +67,6 @@ CLI usage help:
              rich='README.help.generated.svg',
              rich_alt='Output of `npx excalidraw-brute-export-cli --help`',
              rich_bg_color='black',
-             rich_term='xterm-256color',
              rich_cols=160,
              decomentify=True) }}-->
 
