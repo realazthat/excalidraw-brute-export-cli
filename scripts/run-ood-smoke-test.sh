@@ -39,6 +39,7 @@ TARBALL_NAME=$(npm pack)
 TARBALL="${TMP_PROJ_PATH}/${TARBALL_NAME}"
 
 cd "${TMP_DIR}"
+cp -r "${PROJ_PATH}/examples" "${TMP_DIR}/examples"
 npm install "${TARBALL}"
 echo -e "${GREEN}Success: excalidraw-brute-export-cli installed successfully${NC}"
 
@@ -46,6 +47,7 @@ npx playwright install firefox
 
 npx --no-install excalidraw-brute-export-cli --version
 npx --no-install excalidraw-brute-export-cli --help
+bash examples/simple.sh
 echo -e "${GREEN}Success: excalidraw-brute-export-cli smoke test ran successfully${NC}"
 
 echo -e "${GREEN}${BASH_SOURCE[0]}: Tests ran successfully${NC}"
