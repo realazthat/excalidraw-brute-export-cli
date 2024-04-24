@@ -40,13 +40,11 @@ SOURCE: `README.md.jinja2`.
 ## Usage
 
 ```bash
-# Install globally.
+# Install globally from npm registry.
 npm install -g excalidraw-brute-export-cli
 
-# Or clone and install
-git clone https://github.com/realazthat/excalidraw-brute-export-cli.git@v0.2.0
-cd excalidraw-brute-export-cli
-npm install
+# Or install globally, direct from GitHub:
+npm install -g https://github.com/realazthat/excalidraw-brute-export-cli.git#v0.2.0
 
 # Might prompt for root.
 npx playwright install-deps
