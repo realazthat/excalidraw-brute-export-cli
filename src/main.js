@@ -30,6 +30,7 @@ async function PupTakeScreenshot({ page, screenshotsPath }) {
 }
 
 async function amain({ options, logger }) {
+  let page = null;
   try {
     console.log("console.log('amain')");
     logger.info("logger.info('amain')");
@@ -51,7 +52,7 @@ async function amain({ options, logger }) {
       headless: options.headless,
     });
     const context = await browser.newContext();
-    const page = await context.newPage();
+    page = await context.newPage();
     page.on("console", (msg) => logger.info(msg.text()));
 
     // Set screen size
@@ -161,6 +162,10 @@ async function amain({ options, logger }) {
     await browser.close();
   } catch (e) {
     logger.error("Error:", e);
+    if (page !== null && screenshotsPath !== "") {
+      logger.info("Taking screenshot before exiting due to error");
+      await PupTakeScreenshot({ page, screenshotsPath });
+    }
     process.exit(1);
   }
 }
