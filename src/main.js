@@ -244,7 +244,6 @@ program
   })
   .run()
   .then(() => {
-    console.log("program.run() done");
     process.exit(0);
   })
   .catch((e) => {
