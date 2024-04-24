@@ -225,7 +225,7 @@ program
   })
   .option(
     "--screenshots [screenshots]",
-    "Path to store debug screenshots at each step. Empty string means no screenshots are recored. Defaults to no screenshots.",
+    "Path to store debug screenshots at each step. Empty string means no screenshots are recorded. Defaults to no screenshots.",
     {
       validator: program.STRING,
       default: "",
