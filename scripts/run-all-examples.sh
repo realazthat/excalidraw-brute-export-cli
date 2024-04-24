@@ -6,6 +6,10 @@ SCRIPT_DIR=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
 source "${SCRIPT_DIR}/utilities/common.sh"
 
 
+################################################################################
+NODE_VERSION_PATH=${PWD}/.nvmrc \
+  bash "${PROJ_PATH}/scripts/utilities/ensure-node-version.sh"
+################################################################################
 # FORCE_COLOR and TERM are set, to produce consistent results across different
 # systems.
 #

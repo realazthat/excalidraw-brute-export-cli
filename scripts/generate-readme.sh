@@ -6,6 +6,7 @@ set -e -x -v -u -o pipefail
 SCRIPT_DIR=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
 source "${SCRIPT_DIR}/utilities/common.sh"
 
+################################################################################
 PYTHON_VERSION_PATH=${PWD}/scripts/.python-version \
   VENV_PATH=${PWD}/.cache/scripts/.venv \
   source "${PROJ_PATH}/scripts/utilities/ensure-venv.sh"
@@ -14,6 +15,9 @@ PYTHON_VERSION_PATH=${PWD}/scripts/.python-version \
   DEV_VENV_PATH="${PWD}/.cache/scripts/.venv" \
   TARGET_VENV_PATH="${PWD}/.cache/scripts/.venv" \
   bash "${PROJ_PATH}/scripts/utilities/ensure-reqs.sh"
+################################################################################
+NODE_VERSION_PATH=${PWD}/.nvmrc \
+  bash "${PROJ_PATH}/scripts/utilities/ensure-node-version.sh"
 ################################################################################
 
 bash scripts/format.sh
@@ -40,11 +44,13 @@ bash scripts/format.sh
 export FORCE_COLOR=3
 export TERM=dumb
 
-
-rm -f "${PROJ_PATH}/README.md" || true
-touch "${PROJ_PATH}/README.md"
+# https://www.npmjs.com/package/cli-width, via @caporal/core, detects column
+# width, and snipinator's rich_cols isn't cutting it.
+export CLI_WIDTH=120
+export LINES=40
+export COLUMNS=120
 python -m snipinator.cli \
   -t "${PROJ_PATH}/README.md.jinja2" \
   -o "${PROJ_PATH}/README.md" \
-  --rm --force --chmod-ro
+  --rm --force --create --chmod-ro
 ################################################################################
