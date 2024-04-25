@@ -6,14 +6,47 @@ SOURCE: `README.md.jinja2`.
 -->
 <!--
 
+
+
 -->
 
-# Excalidraw Brute Export CLI
+# <div align="center">![Excalidraw Brute Export CLI][1]</div>
 
-- What: Uses playwright to run a headless firefox browser to export Excalidraw
-  diagrams to svg/png files. Using a browser bypasses certain bugs that happen
-  with other projects that attempt to export by emulating the DOM (without a
-  browser).
+<div align="center">
+
+<!-- Icons from https://lucide.dev/icons/users -->
+<!-- Icons from https://lucide.dev/icons/laptop-minimal -->
+
+![**Audience:** Developers][4] ![**Platform:** Linux][5]
+
+</div>
+
+<p align="center">
+  <strong>
+    <a href="#-features">🎇Features</a> &nbsp;&bull;&nbsp;
+    <a href="#-installation">🏠Installation</a> &nbsp;&bull;&nbsp;
+    <a href="#-usage">🚜Usage</a> &nbsp;&bull;&nbsp;
+    <a href="#-command-line-options">💻CLI</a> &nbsp;&bull;&nbsp;
+    <a href="#-requirements">✅Requirements</a> &nbsp;&bull;&nbsp;
+    <a href="#-gotchas-and-limitations">🚸Gotchas</a>
+  </strong>
+</p>
+
+<div align="center">
+
+![Top language][6] [![GitHub License][7]][8] [![npm - version][9]][10]
+
+<!-- TODO:  [![Node Version][8]][5] from https://shields.io/badges/node-current -->
+
+**Export Excalidraw diagrams to SVG or PNG using a headless browser, using the
+exact same export process as Excalidraw itself**
+
+</div>
+
+- ❔ What: Uses [🎭 playwright][2] to run a headless firefox browser to export
+  [Excalidraw][3] diagrams to svg/png files. Using a browser bypasses certain
+  bugs that happen with other projects that attempt to export by emulating the
+  DOM (without a browser).
 - Why:
   - To allow automated export of Excalidraw diagrams to svg/png files via the
     command line.
@@ -29,15 +62,31 @@ SOURCE: `README.md.jinja2`.
   - Addresses/mitigates
     [Timmmm/excalidraw_export#6](https://github.com/Timmmm/excalidraw_export/issues/6)
     `Error rendering edge-labels. #6`.
-- Related Projects
-  - [JRJurman/excalidraw-to-svg](https://github.com/JRJurman/excalidraw-to-svg)
+- 🤝 Related Projects
+  - ⭐⭐⭐⭐⭐
+    [JRJurman/excalidraw-to-svg](https://github.com/JRJurman/excalidraw-to-svg)
     uses jsdom to simulate the DOM, then runs Excalidraw+react in nodejs, loads
     the diagram files and exports them.
-  - [Timmmm/excalidraw_export](https://github.com/Timmmm/excalidraw_export)
+    - Comparison: `JRJurman/excalidraw-to-svg` is faster and more efficient than
+      excalidraw-brute-export-cli. However, this is a "brute force" approach to exporting
+      Excalidraw diagrams, and in _some ways_ might be more reliable.
+  - ⭐⭐⭐⭐⭐
+    [Timmmm/excalidraw_export](https://github.com/Timmmm/excalidraw_export)
     similar to `JRJurman/excalidraw-to-svg` but simplifies the code and also
     embeds SVG fonts.
+    - Comparison: `Timmmm/excalidraw_export` is faster and more efficient than
+      excalidraw-brute-export-cli. However, this is a "brute force" approach to exporting
+      Excalidraw diagrams, and in _some ways_ might be more reliable.
 
-## Usage
+## 🎇 Features
+
+- Export Excalidraw diagrams to SVG or PNG using a headless browser, using the
+  exact same export process as Excalidraw itself.
+- Can point to any excalidraw instance.
+- Ability to change timeouts.
+- Debugging: Ability to take screenshots at each step.
+
+## 🏠 Installation
 
 ```bash
 # Install globally from npm registry.
@@ -51,6 +100,8 @@ npx playwright install-deps
 npx playwright install firefox
 ```
 
+## 🚜 Usage
+
 Example:
 
 <!----><img src="README.example.terminal.svg" alt="Output of `./examples/simple.sh`" /><!---->
@@ -59,16 +110,40 @@ And the resulting image (svg):
 
 <img src="./README.example.output.svg" alt="Simple Excalidraw Diagram as a SVG" width="400" />
 
-CLI usage help:
+## 💻 Command Line Options
 
 <!----><img src="README.help.generated.svg" alt="Output of `npx excalidraw-brute-export-cli --help`" /><!---->
 
-Tested on:
+## ✅ Requirements
+
+- Node
+
+### Tested on
 
 - WSL2 Ubuntu 20.04, Node `v20.12.1
 `.
 
-## Contributions
+## 🚸 Gotchas and Limitations
+
+- Sometimes playwright times out.
+  - Mitigations:
+    - Increase the timeout with the `--timeout` option.
+    - Run the command again.
+  - If this is a persistent problem, please open an issue
+    [here](https://github.com/realazthat/excalidraw-brute-export-cli/issues/new)
+    and upload the diagram (zip it if necessary).
+
+## 🤏 Versioning
+
+We use SemVer for versioning. For the versions available, see the tags on this
+repository.
+
+## 🔑 License
+
+This project is licensed under the MIT License - see the
+[./LICENSE.md](./LICENSE.md) file for details.
+
+## 🫡 Contributions
 
 ### Development environment: Linux-like
 
@@ -87,7 +162,7 @@ Tested on:
 5. `git commit -m "..."`.
 6. Make a PR to `develop` (or push to develop if you have the rights).
 
-## Release Process
+## 🔄🚀 Release Process
 
 These instructions are for maintainers of the project.
 
@@ -111,3 +186,24 @@ These instructions are for maintainers of the project.
    refork the develop branch from the master branch:
    `git checkout develop && git merge master`.
 9. Push the develop branch to GitHub: `git push origin develop`.
+
+[1]: ./.github/logo-exported.svg
+[2]: https://playwright.dev/
+[3]: https://excalidraw.com/
+
+<!-- Logo from https://lucide.dev/icons/users -->
+
+[4]:
+  https://img.shields.io/badge/Audience-Developers|Users-0A1E1E?style=plastic&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXVzZXJzIj48cGF0aCBkPSJNMTYgMjF2LTJhNCA0IDAgMCAwLTQtNEg2YTQgNCAwIDAgMC00IDR2MiIvPjxjaXJjbGUgY3g9IjkiIGN5PSI3IiByPSI0Ii8+PHBhdGggZD0iTTIyIDIxdi0yYTQgNCAwIDAgMC0zLTMuODciLz48cGF0aCBkPSJNMTYgMy4xM2E0IDQgMCAwIDEgMCA3Ljc1Ii8+PC9zdmc+
+
+<!-- Logo from https://lucide.dev/icons/laptop-minimal -->
+
+[5]:
+  https://img.shields.io/badge/Platform-Node-0A1E1E?style=plastic&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWxhcHRvcC1taW5pbWFsIj48cmVjdCB3aWR0aD0iMTgiIGhlaWdodD0iMTIiIHg9IjMiIHk9IjQiIHJ4PSIyIiByeT0iMiIvPjxsaW5lIHgxPSIyIiB4Mj0iMjIiIHkxPSIyMCIgeTI9IjIwIi8+PC9zdmc+
+[6]:
+  https://img.shields.io/github/languages/top/realazthat/excalidraw-brute-export-cli.svg?&cacheSeconds=28800&style=plastic&color=0A1E1E
+[7]:
+  https://img.shields.io/github/license/realazthat/excalidraw-brute-export-cli?style=plastic&color=0A1E1E
+[8]: ./LICENSE.md
+[9]: https://img.shields.io/npm/v/excalidraw-brute-export-cli
+[10]: https://www.npmjs.com/package/excalidraw-brute-export-cli
