@@ -1,7 +1,7 @@
 {
   "overrides": [
     {
-      "files": "*.mjs",
+      "files": ["*.mjs", "*.js", "*.cjs"],
       "options": {
         "printWidth": 80,
         "proseWrap": "always"
