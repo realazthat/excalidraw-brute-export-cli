@@ -10,6 +10,7 @@ SOURCE: `README.md.jinja2`.
 
 
 
+
 -->
 
 # <div align="center">![Excalidraw Brute Export CLI][1]</div>
@@ -212,6 +213,8 @@ These instructions are for maintainers of the project.
 2. In the `develop` branch, bump the version in
    [package.json](package.json), following semantic versioning
    principles. Run `bash ./scripts/pre.sh` to ensure everything is in order.
+   - If anything got generated (e.g README or terminal output images), you will
+     have to stage those.
 3. In the `develop` branch, commit these changes with a message like
    `"Prepare release X.Y.Z"`. (See the contributions section
    [above](#commit-process)).
@@ -219,7 +222,7 @@ These instructions are for maintainers of the project.
    `git checkout master && git merge develop --no-ff`.
 5. `master` branch: Tag the release: Create a git tag for the release with
    `git tag -a vX.Y.Z -m "Version X.Y.Z"`.
-6. Publish to PyPI: Publish the release to PyPI with
+6. Publish to NPM: Publish the release to NPM with
    `bash ./scripts/deploy-to-npm.sh`.
 7. Push to GitHub: Push the commit and tags to GitHub with
    `git push && git push --tags`.
@@ -257,17 +260,17 @@ These instructions are for maintainers of the project.
 [15]:
   https://github.com/realazthat/excalidraw-brute-export-cli/actions/workflows/build-and-test.yml
 [16]:
-  https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v/master?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v0.3.0/master?style=plastic
 [17]:
-  https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v/develop?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v0.3.0/develop?style=plastic
 [18]:
-  https://github.com/realazthat/excalidraw-brute-export-cli/compare/v...master
+  https://github.com/realazthat/excalidraw-brute-export-cli/compare/v0.3.0...master
 [19]:
-  https://github.com/realazthat/excalidraw-brute-export-cli/compare/v...develop
+  https://github.com/realazthat/excalidraw-brute-export-cli/compare/v0.3.0...develop
 [20]:
-  https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v/develop?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v0.3.0/develop?style=plastic
 [21]:
-  https://github.com/realazthat/excalidraw-brute-export-cli/compare/v...develop
+  https://github.com/realazthat/excalidraw-brute-export-cli/compare/v0.3.0...develop
 [22]:
   https://img.shields.io/github/last-commit/realazthat/excalidraw-brute-export-cli/master?style=plastic
 [23]:
