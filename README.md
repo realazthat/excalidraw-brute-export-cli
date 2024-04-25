@@ -39,7 +39,7 @@ SOURCE: `README.md.jinja2`.
 
 ![Top language][6] [![GitHub License][7]][8] [![npm - version][9]][10]
 
-<!-- TODO:  [![Node Version][8]][5] from https://shields.io/badges/node-current -->
+[![Node Version][24]][25]
 
 **Export Excalidraw diagrams to SVG or PNG using a headless browser, using the
 exact same export process as Excalidraw itself**
@@ -249,7 +249,8 @@ These instructions are for maintainers of the project.
 [7]:
   https://img.shields.io/github/license/realazthat/excalidraw-brute-export-cli?style=plastic&color=0A1E1E
 [8]: ./LICENSE.md
-[9]: https://img.shields.io/npm/v/excalidraw-brute-export-cli
+[9]:
+  https://img.shields.io/npm/v/excalidraw-brute-export-cli?style=plastic&color=0A1E1E
 [10]: https://www.npmjs.com/package/excalidraw-brute-export-cli
 [11]: https://github.com/realazthat/excalidraw-brute-export-cli/tree/master
 [12]: https://github.com/realazthat/excalidraw-brute-export-cli/tree/develop
@@ -275,3 +276,6 @@ These instructions are for maintainers of the project.
   https://img.shields.io/github/last-commit/realazthat/excalidraw-brute-export-cli/master?style=plastic
 [23]:
   https://img.shields.io/github/last-commit/realazthat/excalidraw-brute-export-cli/develop?style=plastic
+[24]:
+  https://img.shields.io/node/v/excalidraw-brute-export-cli?style=plastic&color=0A1E1E
+[25]: https://www.npmjs.com/package/excalidraw-brute-export-cli
