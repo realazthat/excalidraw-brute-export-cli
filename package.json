@@ -1,5 +1,7 @@
 {
   "name": "excalidraw-brute-export-cli",
+  "description": "💪🔨🎭 Export Excalidraw diagrams to SVG or PNG using a headless browser, using the exact same export process as Excalidraw itself",
+  "readme": "README.md",
   "bin": {
     "excalidraw-brute-export-cli": "./src/main.js"
   },
@@ -20,5 +22,16 @@
   },
   "engines": {
     "node": ">=18.0.0 <19.0.0 || >=20.0.0 <21.0.0 || >=21.0.0 <22.0.0 || >=22.0.0 <23.0.0"
-  }
+  },
+  "keywords": [
+    "svg",
+    "export",
+    "drawing",
+    "png",
+    "browser",
+    "canvas",
+    "whiteboard",
+    "diagrams",
+    "excalidraw"
+  ]
 }
