@@ -8,6 +8,8 @@ SOURCE: `README.md.jinja2`.
 
 
 
+
+
 -->
 
 # <div align="center">![Excalidraw Brute Export CLI][1]</div>
@@ -116,7 +118,11 @@ And the resulting image (svg):
 
 ## ✅ Requirements
 
-- Node
+- Supported Node versions: `>=18.0.0 <19.0.0 || >=20.0.0 <21.0.0 || >=21.0.0 <22.0.0 || >=22.0.0 <23.0.0` (See
+  [./package.json](./package.json)). These versions were chosen from
+  current supported and upcoming versions of node, from
+  [Node.js: Previous Releases](https://nodejs.org/en/about/previous-releases).
+- Tested Node versions on GitHub Actions: `["18.20.2","20.12.1","21.7.3","22.0.0"]`.
 
 ### Tested on
 
@@ -151,14 +157,29 @@ This project is licensed under the MIT License - see the
   - Requires nodejs (for act).
   - Requires Go (to run act).
   - docker (for act).
+- For running `pre.sh` (Linux-like environment).
+  - Requires `pyenv`, or an exact matching version of python as in
+    [scripts/.python-version](scripts/.python-version) (which is currently
+    `3.8.0
+`).
+  - `jq`, ([installation](https://jqlang.github.io/jq/)) required for
+    [yq](https://github.com/kislyuk/yq), which is itself required for our
+    [./README.md](./README.md) generation, which uses `tomlq` (from the
+    [yq](https://github.com/kislyuk/yq) package) to include version strings from
+    [./scripts/pyproject.toml](./scripts/pyproject.toml).
+  - `bash`, `grep`, `awk`, `sed` `xxd`, `git`, `xxhash` (for tests/workflows).
+  - Requires nodejs (for act).
+  - Requires Go (to run act).
+  - docker (for act).
 
 ### Commit Process
 
 1. (Optionally) Fork the `develop` branch.
 2. Stage your files: `git add path/to/file.py`.
-3. `bash scripts/pre.sh`, this will format, lint, and test the code.
-4. `git status` check if anything changed (generated `README.md` for
-   example), if so, `git add` the changes, and go back to the previous step.
+3. `bash ./scripts/pre.sh`, this will format, lint, and test the code.
+4. `git status` check if anything changed (generated
+   [README.md](README.md) for example), if so, `git add` the changes,
+   and go back to the previous step.
 5. `git commit -m "..."`.
 6. Make a PR to `develop` (or push to develop if you have the rights).
 
@@ -166,11 +187,11 @@ This project is licensed under the MIT License - see the
 
 These instructions are for maintainers of the project.
 
-1. In the `develop` branch, run `bash scripts/pre.sh` to ensure
+1. In the `develop` branch, run `bash ./scripts/pre.sh` to ensure
    everything is in order.
-2. In the `develop` branch, bump the version in `package.json`,
-   following semantic versioning principles. Run `bash scripts/pre.sh` to ensure
-   everything is in order.
+2. In the `develop` branch, bump the version in
+   [package.json](package.json), following semantic versioning
+   principles. Run `bash ./scripts/pre.sh` to ensure everything is in order.
 3. In the `develop` branch, commit these changes with a message like
    `"Prepare release X.Y.Z"`. (See the contributions section
    [above](#commit-process)).
@@ -179,7 +200,7 @@ These instructions are for maintainers of the project.
 5. `master` branch: Tag the release: Create a git tag for the release with
    `git tag -a vX.Y.Z -m "Version X.Y.Z"`.
 6. Publish to PyPI: Publish the release to PyPI with
-   `bash scripts/deploy-to-npm.sh`.
+   `bash ./scripts/deploy-to-npm.sh`.
 7. Push to GitHub: Push the commit and tags to GitHub with
    `git push && git push --tags`.
 8. The `--no-ff` option adds a commit to the master branch for the merge, so

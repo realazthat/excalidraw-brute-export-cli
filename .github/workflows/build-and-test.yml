@@ -16,13 +16,18 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        node-version: [18.20.2, 20.12.1, 21.7.3, 22.0.0]
 
     steps:
     - uses: actions/checkout@v4
     - name: Set up Node
       uses: actions/setup-node@v4
       with:
-        node-version: 20.12.1
+        node-version: ${{ matrix.node-version }}
+    - name: Set up .nvmrc
+      run: echo v${{ matrix.node-version }} > .nvmrc
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
@@ -35,7 +40,11 @@ jobs:
       # * rsync: out-of-directory test.
       # * grep: tests.
       # * expect: for `unbuffer`, useful to grab and compare ansi color symbols.
-      run: sudo apt-get update && sudo apt-get install -y bash grep xxd git xxhash rsync expect
+      # * jq: dependency for [yq](https://github.com/kislyuk/yq), which is used
+      #   to generate the README.
+      run: |
+        sudo apt-get update && sudo apt-get install -y bash grep xxd git xxhash \
+          rsync expect jq
     # - name: Install nvm
     #   run: |
     #     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash

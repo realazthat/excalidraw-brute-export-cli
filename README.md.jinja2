@@ -2,6 +2,10 @@
 {% set project_name='excalidraw-brute-export-cli' %}
 {% set last_stable_version=shell("node -p \"require('./package.json').version\"",
                                  include_args=False) | trim %}
+{% set node_versions=shell("node -p \"require('./package.json').engines.node\"",
+                                 include_args=False) | trim %}
+{% set tested_node_versions=shell('python -m yq -c \'.jobs["build-and-test"]["strategy"]["matrix"]["node-version"]\' .github/workflows/build-and-test.yml',
+                                 include_args=False) | trim %}
 {% set badge_color='0A1E1E' %}
 -->
 
@@ -121,7 +125,11 @@ And the resulting image (svg):
 
 ## ✅ Requirements
 
-- Node
+- Supported Node versions: `{{ node_versions }}` (See
+  {{path('./package.json', link='md')}}). These versions were chosen from
+  current supported and upcoming versions of node, from
+  [Node.js: Previous Releases](https://nodejs.org/en/about/previous-releases).
+- Tested Node versions on GitHub Actions: `{{ tested_node_versions }}`.
 
 ### Tested on
 
@@ -155,14 +163,28 @@ This project is licensed under the MIT License - see the
   - Requires nodejs (for act).
   - Requires Go (to run act).
   - docker (for act).
+- For running `pre.sh` (Linux-like environment).
+  - Requires `pyenv`, or an exact matching version of python as in
+    {{path('scripts/.python-version', link='md')}} (which is currently
+    `{{ rawsnippet('scripts/.python-version') }}`).
+  - `jq`, ([installation](https://jqlang.github.io/jq/)) required for
+    [yq](https://github.com/kislyuk/yq), which is itself required for our
+    {{path('./README.md', link='md')}} generation, which uses `tomlq` (from the
+    [yq](https://github.com/kislyuk/yq) package) to include version strings from
+    {{path('./scripts/pyproject.toml', link='md')}}.
+  - `bash`, `grep`, `awk`, `sed` `xxd`, `git`, `xxhash` (for tests/workflows).
+  - Requires nodejs (for act).
+  - Requires Go (to run act).
+  - docker (for act).
 
 ### Commit Process
 
 1. (Optionally) Fork the `develop` branch.
 2. Stage your files: `git add path/to/file.py`.
-3. `bash scripts/pre.sh`, this will format, lint, and test the code.
-4. `git status` check if anything changed (generated `{{path('README.md')}}` for
-   example), if so, `git add` the changes, and go back to the previous step.
+3. `bash ./scripts/pre.sh`, this will format, lint, and test the code.
+4. `git status` check if anything changed (generated
+   {{path('README.md', link='md')}} for example), if so, `git add` the changes,
+   and go back to the previous step.
 5. `git commit -m "..."`.
 6. Make a PR to `develop` (or push to develop if you have the rights).
 
@@ -170,11 +192,11 @@ This project is licensed under the MIT License - see the
 
 These instructions are for maintainers of the project.
 
-1. In the `develop` branch, run `bash {{path('scripts/pre.sh')}}` to ensure
+1. In the `develop` branch, run `bash {{path('./scripts/pre.sh')}}` to ensure
    everything is in order.
-2. In the `develop` branch, bump the version in `{{path('package.json')}}`,
-   following semantic versioning principles. Run `bash scripts/pre.sh` to ensure
-   everything is in order.
+2. In the `develop` branch, bump the version in
+   {{path('package.json', link='md')}}, following semantic versioning
+   principles. Run `bash ./scripts/pre.sh` to ensure everything is in order.
 3. In the `develop` branch, commit these changes with a message like
    `"Prepare release X.Y.Z"`. (See the contributions section
    [above](#commit-process)).
@@ -183,7 +205,7 @@ These instructions are for maintainers of the project.
 5. `master` branch: Tag the release: Create a git tag for the release with
    `git tag -a vX.Y.Z -m "Version X.Y.Z"`.
 6. Publish to PyPI: Publish the release to PyPI with
-   `bash scripts/deploy-to-npm.sh`.
+   `bash ./scripts/deploy-to-npm.sh`.
 7. Push to GitHub: Push the commit and tags to GitHub with
    `git push && git push --tags`.
 8. The `--no-ff` option adds a commit to the master branch for the merge, so

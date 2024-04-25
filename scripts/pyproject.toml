@@ -13,6 +13,7 @@ prod = []
 # new dependency here, add the unpinned package name here, and then run
 # `EXTRA=dev bash scripts/utilties/pin-extra-reqs.sh`.
 dev = [
+  "argcomplete==3.3.0",
   "cfgv==3.4.0",
   "changeguard==0.3.1",
   "colorama==0.4.6",
@@ -40,5 +41,7 @@ dev = [
   "types-colorama==0.4.15.20240311",
   "types-pyyaml==6.0.12.20240311",
   "typing-extensions==4.11.0",
-  "virtualenv==20.25.3"
+  "virtualenv==20.25.3",
+  "xmltodict==0.13.0",
+  "yq==3.2.3"
 ]
