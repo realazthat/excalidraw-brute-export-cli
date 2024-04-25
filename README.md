@@ -108,7 +108,7 @@ exact same export process as Excalidraw itself**
 npm install -g excalidraw-brute-export-cli
 
 # Or install globally, direct from GitHub:
-npm install -g https://github.com/realazthat/excalidraw-brute-export-cli.git#v0.2.0
+npm install -g https://github.com/realazthat/excalidraw-brute-export-cli.git#v0.3.0
 
 # Might prompt for root.
 npx playwright install-deps
