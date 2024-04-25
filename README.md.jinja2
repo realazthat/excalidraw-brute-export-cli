@@ -42,6 +42,17 @@ exact same export process as Excalidraw itself**
 
 </div>
 
+---
+
+<div align="center">
+
+|                   | Status                      | Stable                    | Unstable                  |                    |
+| ----------------- | --------------------------- | ------------------------- | ------------------------- | ------------------ |
+| **[Master][11]**  | [![Build and Test][13]][15] | [![since tagged][16]][18] |                           | ![last commit][22] |
+| **[Develop][12]** | [![Build and Test][14]][15] | [![since tagged][17]][19] | [![since tagged][20]][21] | ![last commit][23] |
+
+</div>
+
 - ❔ What: Uses [🎭 playwright][2] to run a headless firefox browser to export
   [Excalidraw][3] diagrams to svg/png files. Using a browser bypasses certain
   bugs that happen with other projects that attempt to export by emulating the
@@ -227,9 +238,33 @@ These instructions are for maintainers of the project.
 [5]:
   https://img.shields.io/badge/Platform-Node-{{badge_color}}?style=plastic&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWxhcHRvcC1taW5pbWFsIj48cmVjdCB3aWR0aD0iMTgiIGhlaWdodD0iMTIiIHg9IjMiIHk9IjQiIHJ4PSIyIiByeT0iMiIvPjxsaW5lIHgxPSIyIiB4Mj0iMjIiIHkxPSIyMCIgeTI9IjIwIi8+PC9zdmc+
 [6]:
-  https://img.shields.io/github/languages/top/realazthat/excalidraw-brute-export-cli.svg?&cacheSeconds=28800&style=plastic&color={{badge_color}}
+  https://img.shields.io/github/languages/top/realazthat/{{project_name}}.svg?&cacheSeconds=28800&style=plastic&color={{badge_color}}
 [7]:
-  https://img.shields.io/github/license/realazthat/excalidraw-brute-export-cli?style=plastic&color={{badge_color}}
+  https://img.shields.io/github/license/realazthat/{{project_name}}?style=plastic&color={{badge_color}}
 [8]: ./LICENSE.md
-[9]: https://img.shields.io/npm/v/excalidraw-brute-export-cli
-[10]: https://www.npmjs.com/package/excalidraw-brute-export-cli
+[9]: https://img.shields.io/npm/v/{{project_name}}
+[10]: https://www.npmjs.com/package/{{project_name}}
+[11]: https://github.com/realazthat/{{project_name}}/tree/master
+[12]: https://github.com/realazthat/{{project_name}}/tree/develop
+[13]:
+  https://img.shields.io/github/actions/workflow/status/realazthat/{{project_name}}/build-and-test.yml?branch=master&style=plastic
+[14]:
+  https://img.shields.io/github/actions/workflow/status/realazthat/{{project_name}}/build-and-test.yml?branch=develop&style=plastic
+[15]:
+  https://github.com/realazthat/{{project_name}}/actions/workflows/build-and-test.yml
+[16]:
+  https://img.shields.io/github/commits-since/realazthat/{{project_name}}/v{{last_stable_release}}/master?style=plastic
+[17]:
+  https://img.shields.io/github/commits-since/realazthat/{{project_name}}/v{{last_stable_release}}/develop?style=plastic
+[18]:
+  https://github.com/realazthat/{{project_name}}/compare/v{{last_stable_release}}...master
+[19]:
+  https://github.com/realazthat/{{project_name}}/compare/v{{last_stable_release}}...develop
+[20]:
+  https://img.shields.io/github/commits-since/realazthat/{{project_name}}/v{{last_unstable_release}}/develop?style=plastic
+[21]:
+  https://github.com/realazthat/{{project_name}}/compare/v{{last_unstable_release}}...develop
+[22]:
+  https://img.shields.io/github/last-commit/realazthat/{{project_name}}/master?style=plastic
+[23]:
+  https://img.shields.io/github/last-commit/realazthat/{{project_name}}/develop?style=plastic

@@ -45,6 +45,17 @@ exact same export process as Excalidraw itself**
 
 </div>
 
+---
+
+<div align="center">
+
+|                   | Status                      | Stable                    | Unstable                  |                    |
+| ----------------- | --------------------------- | ------------------------- | ------------------------- | ------------------ |
+| **[Master][11]**  | [![Build and Test][13]][15] | [![since tagged][16]][18] |                           | ![last commit][22] |
+| **[Develop][12]** | [![Build and Test][14]][15] | [![since tagged][17]][19] | [![since tagged][20]][21] | ![last commit][23] |
+
+</div>
+
 - ❔ What: Uses [🎭 playwright][2] to run a headless firefox browser to export
   [Excalidraw][3] diagrams to svg/png files. Using a browser bypasses certain
   bugs that happen with other projects that attempt to export by emulating the
@@ -228,3 +239,27 @@ These instructions are for maintainers of the project.
 [8]: ./LICENSE.md
 [9]: https://img.shields.io/npm/v/excalidraw-brute-export-cli
 [10]: https://www.npmjs.com/package/excalidraw-brute-export-cli
+[11]: https://github.com/realazthat/excalidraw-brute-export-cli/tree/master
+[12]: https://github.com/realazthat/excalidraw-brute-export-cli/tree/develop
+[13]:
+  https://img.shields.io/github/actions/workflow/status/realazthat/excalidraw-brute-export-cli/build-and-test.yml?branch=master&style=plastic
+[14]:
+  https://img.shields.io/github/actions/workflow/status/realazthat/excalidraw-brute-export-cli/build-and-test.yml?branch=develop&style=plastic
+[15]:
+  https://github.com/realazthat/excalidraw-brute-export-cli/actions/workflows/build-and-test.yml
+[16]:
+  https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v/master?style=plastic
+[17]:
+  https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v/develop?style=plastic
+[18]:
+  https://github.com/realazthat/excalidraw-brute-export-cli/compare/v...master
+[19]:
+  https://github.com/realazthat/excalidraw-brute-export-cli/compare/v...develop
+[20]:
+  https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v/develop?style=plastic
+[21]:
+  https://github.com/realazthat/excalidraw-brute-export-cli/compare/v...develop
+[22]:
+  https://img.shields.io/github/last-commit/realazthat/excalidraw-brute-export-cli/master?style=plastic
+[23]:
+  https://img.shields.io/github/last-commit/realazthat/excalidraw-brute-export-cli/develop?style=plastic
