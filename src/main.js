@@ -282,7 +282,7 @@ program
   )
   .option(
     "--action-sleep-time [action-sleep-time]",
-    "Time (in milliseconds) for each action to sleep in playwright. Defaults to 100. Too short and dialogs won't open. Too long and it will take longer to run.",
+    "Time (in milliseconds) for each action to sleep. Defaults to 100. Too short and dialogs won't open in time. Too long and it will take longer to run.",
     {
       validator: program.INTEGER,
       default: 100,
