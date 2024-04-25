@@ -53,6 +53,8 @@ exact same export process as Excalidraw itself**
 
 </div>
 
+<img src=".github/demo.gif" alt="Demo" width="100%">
+
 - ❔ What: Uses [🎭 playwright][2] to run a headless firefox browser to export
   [Excalidraw][3] diagrams to svg/png files. Using a browser bypasses certain
   bugs that happen with other projects that attempt to export by emulating the
@@ -183,7 +185,8 @@ This project is licensed under the MIT License - see the
     {{path('./README.md', link='md')}} generation, which uses `tomlq` (from the
     [yq](https://github.com/kislyuk/yq) package) to include version strings from
     {{path('./scripts/pyproject.toml', link='md')}}.
-  - `bash`, `grep`, `awk`, `sed` `xxd`, `git`, `xxhash` (for tests/workflows).
+  - `bash`, `grep`, `awk`, `sed` `xxd`, `git`, `xxhash`, `rsync` (for
+    tests/workflows).
   - Requires nodejs (for act).
   - Requires Go (to run act).
   - docker (for act).
@@ -191,13 +194,19 @@ This project is licensed under the MIT License - see the
 ### Commit Process
 
 1. (Optionally) Fork the `develop` branch.
-2. Stage your files: `git add path/to/file.py`.
-3. `bash ./scripts/pre.sh`, this will format, lint, and test the code.
-4. `git status` check if anything changed (generated
+2. If the {{path('.github/demo.gif', link='md')}} will change, run
+   `bash ./scripts/generate-animation.sh`, this will generate a new
+   {{path('.github/demo.gif', link='md')}}.
+   - Sanity-check the animation visually!
+   - Unfortunately, every run will make a unique gif, please don't stage this
+     file unless it changes due to some feature change or somesuch.
+3. Stage your files: e.g `git add path/to/file.py`.
+4. `bash ./scripts/pre.sh`, this will format, lint, and test the code.
+5. `git status` check if anything changed (generated
    {{path('README.md', link='md')}} for example), if so, `git add` the changes,
    and go back to the previous step.
-5. `git commit -m "..."`.
-6. Make a PR to `develop` (or push to develop if you have the rights).
+6. `git commit -m "..."`.
+7. Make a PR to `develop` (or push to develop if you have the rights).
 
 ## 🔄🚀 Release Process
 
