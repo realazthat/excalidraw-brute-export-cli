@@ -99,5 +99,5 @@ export PS1="${VHS_PS1}"
 vhs "${PROJ_PATH}/.github/demo.tape"
 cp -f .github/demo.gif "${PROJ_PATH}/.github/demo.gif"
 
-echo -e "${GREEN}${BASH_SOURCE[0]}: Tests ran successfully${NC}"
+echo -e "${GREEN}${BASH_SOURCE[0]}: Animation generated successfully${NC}"
 ################################################################################
