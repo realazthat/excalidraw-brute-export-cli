@@ -30,26 +30,34 @@ async function PupTakeScreenshot({ page, screenshotsPath }) {
 }
 
 async function amain({ options, logger }) {
+  console.log("console.log('amain')");
+  logger.info("logger.info('amain')");
+  logger.info("options:", options);
+
+  if (options.leaveBrowserRunning && options.headless) {
+    throw new Error(
+      "leave-browser-running can only be used when headless is false.",
+    );
+  }
+
+  const input /*: string */ = options.input;
+  const output /*: string */ = options.output;
+  const excalidrawURL = options.url;
+  const outputFileName = path.basename(output);
+  const actionsSleepTime = options.actionSleepTime;
+
+  let screenshotsPath = "";
+  if (options.screenshots) {
+    screenshotsPath = path.resolve(cwd(), options.screenshots);
+  }
+
   let page = null;
   try {
-    console.log("console.log('amain')");
-    logger.info("logger.info('amain')");
-    logger.info("options:", options);
-
-    const input /*: string */ = options.input;
-    const output /*: string */ = options.output;
-    const excalidrawURL = options.url;
-    const outputFileName = path.basename(output);
-
-    let screenshotsPath = "";
-    if (options.screenshots) {
-      screenshotsPath = path.resolve(cwd(), options.screenshots);
-    }
-
     // Have to use firefox, because chromium doesn't let us easily intercept the
     // file upload API that Excalidraw uses.
     const browser = await playwright.firefox.launch({
       headless: options.headless,
+      leaveBrowserRunning: options.leaveBrowserRunning,
     });
     const context = await browser.newContext();
     page = await context.newPage();
@@ -64,25 +72,35 @@ async function amain({ options, logger }) {
 
     // Navigate the page to a URL
     await page.goto(excalidrawURL);
-    await new Promise((resolve) => setTimeout(resolve, 1));
+    await new Promise((resolve) => setTimeout(resolve, actionsSleepTime));
     await PupTakeScreenshot({ page, screenshotsPath });
 
-    const fileChooserPromise = page.waitForEvent("filechooser");
+    const fileChosenPromise = new Promise((resolve, reject) => {
+      page.once("filechooser", async (fileChooser) => {
+        try {
+          await fileChooser.setFiles(input);
+          logger.info("File is chosen!");
+          resolve();
+        } catch (e) {
+          reject(e);
+        }
+      });
+    });
 
+    logger.info("Opening file: Control+O");
     await page.keyboard.press("Control+O");
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    logger.info("Choosing file");
+
+    await new Promise((resolve) => setTimeout(resolve, actionsSleepTime));
     await PupTakeScreenshot({ page, screenshotsPath });
 
-    logger.info("OK file is chosen?");
+    await fileChosenPromise;
 
-    const fileChooser = await fileChooserPromise;
-    await fileChooser.setFiles(input);
-    logger.info("fileChooserPromise!");
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await new Promise((resolve) => setTimeout(resolve, actionsSleepTime));
     await PupTakeScreenshot({ page, screenshotsPath });
 
     await page.keyboard.press("Control+Shift+E");
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await new Promise((resolve) => setTimeout(resolve, actionsSleepTime));
     await PupTakeScreenshot({ page, screenshotsPath });
 
     //////////////////////////////////////////////////////////////////////////////
@@ -141,25 +159,39 @@ async function amain({ options, logger }) {
     }
 
     await exportFileName.fill(outputFileName);
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await new Promise((resolve) => setTimeout(resolve, actionsSleepTime));
     await PupTakeScreenshot({ page, screenshotsPath });
     //////////////////////////////////////////////////////////////////////////////
-    const fileDownloadPromise = page.waitForEvent("download");
+
+    const fileDownloadedPromise = new Promise((resolve, reject) => {
+      page.once("download", async (fileDownload) => {
+        try {
+          await fileDownload.saveAs(output);
+          logger.info("File is downloaded!");
+          resolve();
+        } catch (e) {
+          reject(e);
+        }
+      });
+    });
 
     if (options.format === "svg") {
+      logger.info("Pressing SVG button!");
       await saveSVG.click();
     } else if (options.format === "png") {
+      logger.info("Pressing PNG button!");
       await savePNG.click();
     }
 
-    const fileDownload = await fileDownloadPromise;
-    await fileDownload.saveAs(output);
+    await fileDownloadedPromise;
 
-    logger.info("fileChooserPromise!");
-    await new Promise((resolve) => setTimeout(resolve, 100));
+    await new Promise((resolve) => setTimeout(resolve, actionsSleepTime));
     await PupTakeScreenshot({ page, screenshotsPath });
     //////////////////////////////////////////////////////////////////////////////
-
+    if (options.leaveBrowserRunning) {
+      logger.info("Leaving browser running. Press Ctrl+C to exit.");
+      await new Promise(() => {});
+    }
     logger.info("closing...");
     await page.close();
     await browser.close();
@@ -168,6 +200,11 @@ async function amain({ options, logger }) {
     if (page !== null && screenshotsPath !== "") {
       logger.info("Taking screenshot before exiting due to error");
       await PupTakeScreenshot({ page, screenshotsPath });
+    }
+
+    if (options.leaveBrowserRunning) {
+      logger.info("Leaving browser running. Press Ctrl+C to exit.");
+      await new Promise(() => {});
     }
     process.exit(1);
   }
@@ -219,16 +256,36 @@ program
     validator: program.STRING,
     default: "https://excalidraw.com/",
   })
-  .option("--headless [headless]", "Should the browser be headless.", {
-    validator: program.BOOLEAN,
-    default: true,
-  })
+  .option(
+    "--headless [headless]",
+    "Should the browser be headless. Note that file dialogs do not open/work. Can turn this off for debugging.",
+    {
+      validator: program.BOOLEAN,
+      default: true,
+    },
+  )
+  .option(
+    "--leave-browser-running [leave-browser-running]",
+    "Should the browser be left open afterwards (only allowed when headless==false). Can turn this off for debugging.",
+    {
+      validator: program.BOOLEAN,
+      default: false,
+    },
+  )
   .option(
     "--screenshots [screenshots]",
     "Path to store debug screenshots at each step. Empty string means no screenshots are recorded. Defaults to no screenshots.",
     {
       validator: program.STRING,
       default: "",
+    },
+  )
+  .option(
+    "--action-sleep-time [action-sleep-time]",
+    "Time (in milliseconds) for each action to sleep in playwright. Defaults to 100. Too short and dialogs won't open. Too long and it will take longer to run.",
+    {
+      validator: program.INTEGER,
+      default: 100,
     },
   )
   .option(
