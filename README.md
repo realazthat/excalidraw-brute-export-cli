@@ -84,15 +84,17 @@ exact same export process as Excalidraw itself**
     uses jsdom to simulate the DOM, then runs Excalidraw+react in nodejs, loads
     the diagram files and exports them.
     - Comparison: `JRJurman/excalidraw-to-svg` is faster and more efficient than
-      excalidraw-brute-export-cli. However, this is a "brute force" approach to exporting
-      Excalidraw diagrams, and in _some ways_ might be more reliable.
+      excalidraw-brute-export-cli. However, excalidraw-brute-export-cli is a "brute force"
+      approach to exporting Excalidraw diagrams, and in _some ways_ might be
+      more reliable.
   - ⭐⭐⭐⭐⭐
     [Timmmm/excalidraw_export](https://github.com/Timmmm/excalidraw_export)
     similar to `JRJurman/excalidraw-to-svg` but simplifies the code and also
     embeds SVG fonts.
     - Comparison: `Timmmm/excalidraw_export` is faster and more efficient than
-      excalidraw-brute-export-cli. However, this is a "brute force" approach to exporting
-      Excalidraw diagrams, and in _some ways_ might be more reliable.
+      excalidraw-brute-export-cli. However, excalidraw-brute-export-cli is a "brute force"
+      approach to exporting Excalidraw diagrams, and in _some ways_ might be
+      more reliable.
 
 ## 🎇 Features
 
