@@ -29,6 +29,61 @@ async function PupTakeScreenshot({ page, screenshotsPath }) {
   });
 }
 
+async function OpenFileDialog({
+  page,
+  logger,
+  actionsSleepTime,
+  screenshotsPath,
+}) {
+  logger.info("Clicking: Menu Burger");
+  const mainMenuTrigger = page.locator("button.main-menu-trigger");
+  await mainMenuTrigger.click();
+  await new Promise((resolve) => setTimeout(resolve, actionsSleepTime));
+  await PupTakeScreenshot({ page, screenshotsPath });
+
+  logger.info("Clicking: Open Menu Item");
+  const openButton = page.locator("button[aria-label='Open']");
+  await openButton.click();
+  await new Promise((resolve) => setTimeout(resolve, actionsSleepTime));
+  await PupTakeScreenshot({ page, screenshotsPath });
+
+  // This is not good, because it is OS dependent (Mac uses some other combo).
+  //
+  // logger.info("Opening file: Control+O");
+  // await page.keyboard.press("Control+O");
+  // await new Promise((resolve) => setTimeout(resolve, actionsSleepTime));
+  // await PupTakeScreenshot({ page, screenshotsPath });
+}
+
+async function OpenExportModal({
+  page,
+  logger,
+  actionsSleepTime,
+  screenshotsPath,
+}) {
+  const exportButton = page.locator("button[aria-label='Export image...']");
+
+  if ((await exportButton.count()) === 0) {
+    logger.info("Clicking: Menu Burger");
+    const mainMenuTrigger = page.locator("button.main-menu-trigger");
+    await mainMenuTrigger.click();
+    await new Promise((resolve) => setTimeout(resolve, actionsSleepTime));
+    await PupTakeScreenshot({ page, screenshotsPath });
+  }
+
+  logger.info("Clicking: Export Menu Item");
+  await exportButton.click();
+  await new Promise((resolve) => setTimeout(resolve, actionsSleepTime));
+  await PupTakeScreenshot({ page, screenshotsPath });
+
+  // This is not good, because it is OS dependent (Mac uses some other combo).
+  //
+  // logger.info("Opening export modal: Control+Shift+E");
+  // await page.keyboard.press("Control+Shift+E");
+  // await new Promise((resolve) => setTimeout(resolve, actionsSleepTime));
+  // await PupTakeScreenshot({ page, screenshotsPath });
+}
+
 async function amain({ options, logger }) {
   console.log("console.log('amain')");
   logger.info("logger.info('amain')");
@@ -87,21 +142,10 @@ async function amain({ options, logger }) {
       });
     });
 
-    logger.info("Opening file: Control+O");
-    await page.keyboard.press("Control+O");
-    logger.info("Choosing file");
-
-    await new Promise((resolve) => setTimeout(resolve, actionsSleepTime));
-    await PupTakeScreenshot({ page, screenshotsPath });
-
+    await OpenFileDialog({ page, logger, actionsSleepTime, screenshotsPath });
     await fileChosenPromise;
 
-    await new Promise((resolve) => setTimeout(resolve, actionsSleepTime));
-    await PupTakeScreenshot({ page, screenshotsPath });
-
-    await page.keyboard.press("Control+Shift+E");
-    await new Promise((resolve) => setTimeout(resolve, actionsSleepTime));
-    await PupTakeScreenshot({ page, screenshotsPath });
+    await OpenExportModal({ page, logger, actionsSleepTime, screenshotsPath });
 
     //////////////////////////////////////////////////////////////////////////////
     // Fill in the export form.
@@ -182,7 +226,6 @@ async function amain({ options, logger }) {
       logger.info("Pressing PNG button!");
       await savePNG.click();
     }
-
     await fileDownloadedPromise;
 
     await new Promise((resolve) => setTimeout(resolve, actionsSleepTime));
