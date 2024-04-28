@@ -85,8 +85,6 @@ async function OpenExportModal({
 }
 
 async function amain({ options, logger }) {
-  console.log("console.log('amain')");
-  logger.info("logger.info('amain')");
   logger.info("options:", options);
 
   if (options.leaveBrowserRunning && options.headless) {
@@ -119,7 +117,7 @@ async function amain({ options, logger }) {
     if (options.timeout >= 0) {
       page.setDefaultTimeout(options.timeout);
     }
-    page.on("console", (msg) => logger.info(msg.text()));
+    page.on("console", (msg) => logger.debug(msg.text()));
 
     // Set screen size
     // await page.setViewport({ width: 1024, height: 1024 });
