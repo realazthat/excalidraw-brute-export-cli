@@ -19,7 +19,6 @@ jobs:
     strategy:
       matrix:
         node-version: [18.20.2, 20.12.1, 21.7.3, 22.0.0]
-
     steps:
     - uses: actions/checkout@v4
     - name: Set up Node

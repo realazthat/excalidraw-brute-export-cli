@@ -122,7 +122,7 @@ npx playwright install firefox
 
 Example:
 
-<!----><img src="README.example.terminal.svg" alt="Output of `./examples/simple.sh`" /><!---->
+<!----><img src="README.example.terminal.svg" alt="Example output" /><!---->
 
 And the resulting image (svg):
 
