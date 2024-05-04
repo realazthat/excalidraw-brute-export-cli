@@ -54,3 +54,9 @@ python -m snipinator.cli \
   -o "${PROJ_PATH}/README.md" \
   --rm --force --create --chmod-ro
 ################################################################################
+LAST_VERSION=$(node -p "require('./package.json').version")
+python -m mdremotifier.cli \
+  -i "${PROJ_PATH}/README.md" \
+  --url-prefix "https://github.com/realazthat/excalidraw-brute-export-cli/blob/v${LAST_VERSION}/" \
+  --img-url-prefix "https://raw.githubusercontent.com/realazthat/excalidraw-brute-export-cli/${LAST_VERSION}/" \
+  -o "${PROJ_PATH}/.github/README.remotified.md"
