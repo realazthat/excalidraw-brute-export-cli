@@ -57,7 +57,7 @@ exact same export process as Excalidraw itself**
 
 </div>
 
-<img alt="Demo" src="https://raw.githubusercontent.com/realazthat/excalidraw-brute-export-cli/0.3.0/.github/demo.gif" width="100%"/>
+<img alt="Demo" src="https://raw.githubusercontent.com/realazthat/excalidraw-brute-export-cli/v0.3.0/.github/demo.gif" width="100%"/>
 
 - ❔ What: Uses [🎭 playwright][2] to run a headless firefox browser to export
   [Excalidraw][3] diagrams to svg/png files. Using a browser bypasses certain
@@ -122,15 +122,15 @@ npx playwright install firefox
 
 Example:
 
-<!-- --><img alt="Example output" src="https://raw.githubusercontent.com/realazthat/excalidraw-brute-export-cli/0.3.0/README.example.terminal.svg"/><!-- -->
+<!-- --><img alt="Example output" src="https://raw.githubusercontent.com/realazthat/excalidraw-brute-export-cli/v0.3.0/README.example.terminal.svg"/><!-- -->
 
 And the resulting image (svg):
 
-<img alt="Simple Excalidraw Diagram as a SVG" src="https://raw.githubusercontent.com/realazthat/excalidraw-brute-export-cli/0.3.0/README.example.output.svg" width="400"/>
+<img alt="Simple Excalidraw Diagram as a SVG" src="https://raw.githubusercontent.com/realazthat/excalidraw-brute-export-cli/v0.3.0/README.example.output.svg" width="400"/>
 
 ## 💻 Command Line Options
 
-<!-- --><img alt="Output of `npx excalidraw-brute-export-cli --help`" src="https://raw.githubusercontent.com/realazthat/excalidraw-brute-export-cli/0.3.0/README.help.generated.svg"/><!-- -->
+<!-- --><img alt="Output of `npx excalidraw-brute-export-cli --help`" src="https://raw.githubusercontent.com/realazthat/excalidraw-brute-export-cli/v0.3.0/README.help.generated.svg"/><!-- -->
 
 ## ✅ Requirements
 
@@ -231,7 +231,7 @@ These instructions are for maintainers of the project.
    `git checkout develop && git merge master`.
 9. Push the develop branch to GitHub: `git push origin develop`.
 
-[1]: https://raw.githubusercontent.com/realazthat/excalidraw-brute-export-cli/0.3.0/.github/logo-exported.svg
+[1]: https://raw.githubusercontent.com/realazthat/excalidraw-brute-export-cli/v0.3.0/.github/logo-exported.svg
 [2]: https://playwright.dev/
 [3]: https://excalidraw.com/
 
