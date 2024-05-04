@@ -3,7 +3,7 @@
 set -e -x -v -u -o pipefail
 
 SCRIPT_DIR=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
-source "${SCRIPT_DIR}/utilities/common.sh"
+source "${SCRIPT_DIR}/common.sh"
 
 CACHE_SERVER_PATH="${PWD}/.cache/act/cache-server-path"
 ACTION_CACHE_PATH="${PWD}/.cache/act/action-cache"
