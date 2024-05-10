@@ -19,6 +19,9 @@ jobs:
     strategy:
       matrix:
         node-version: [18.20.2, 20.12.1, 21.7.3, 22.0.0]
+        EXCALIDRAW_BRUTE_EXPORT_CLI_URL:
+          - http://localhost:59876,
+          - https://excalidraw.com,
     steps:
     - uses: actions/checkout@v4
     - name: Set up Node
@@ -31,19 +34,16 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: 3.8.0
-    - name: Install Bash and other dependencies (Ubuntu)
-      # * bash: scripts.
-      # * xxd: tests.
-      # * git: scripts, tests.
-      # * xxhash: changeguard.
-      # * rsync: out-of-directory test.
-      # * grep: tests.
-      # * expect: for `unbuffer`, useful to grab and compare ansi color symbols.
-      # * jq: dependency for [yq](https://github.com/kislyuk/yq), which is used
-      #   to generate the README.
+    - name: Get Dependencies
       run: |
-        sudo apt-get update && sudo apt-get install -y bash grep xxd git xxhash \
-          rsync expect jq
+        sudo apt-get update && sudo apt-get install -y jq
+        pip install yq
+        APT_DEPS=$(python -m yq -r -c '.dev | keys | join(" ")' .github/dependencies.yml)
+        echo "APT_DEPS=${APT_DEPS}" >> $GITHUB_ENV
+    - name: Install Dependencies (Ubuntu)
+      run: |
+        # See project/.github/dependencies.yml for a list of dependencies.
+        sudo apt-get update && sudo apt-get install -y ${APT_DEPS}
     # - name: Install nvm
     #   run: |
     #     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash

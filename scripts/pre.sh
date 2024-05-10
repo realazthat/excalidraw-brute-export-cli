@@ -7,11 +7,13 @@ source "${SCRIPT_DIR}/utilities/common.sh"
 
 export PYTHON_VERSION_PATH="${PWD}/scripts/.python-version"
 export TOML="${PWD}/scripts/pyproject.toml"
+export EXCALIDRAW_BRUTE_EXPORT_CLI_URL=${EXCALIDRAW_BRUTE_EXPORT_CLI_URL-"http://localhost:59876"}
 
 # This variable will be 1 when we are the ideal version in the GH action matrix.
 IDEAL="0"
 WANTED_NODE_VERSION=$(cat .nvmrc)
-if [[ "${WANTED_NODE_VERSION}" == "v20.12.1" ]]; then
+
+if [[ "${WANTED_NODE_VERSION}" == "v20.12.1" && "${EXCALIDRAW_BRUTE_EXPORT_CLI_URL}" == "http://localhost:59876" ]]; then
   IDEAL="1"
 fi
 
@@ -38,6 +40,7 @@ npm install
 
 EXTRA=dev bash scripts/utilities/pin-extra-reqs.sh
 npm run genversion
+bash scripts/run-excalidraw.sh
 bash scripts/run-all-examples.sh
 bash scripts/format.sh
 bash scripts/run-ood-smoke-test.sh

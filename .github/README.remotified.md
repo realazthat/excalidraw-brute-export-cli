@@ -134,6 +134,9 @@ And the resulting image (svg):
 
 ## ✅ Requirements
 
+- Tested with latest version of <https://excalidraw.com> as of `2024/05/05`, and
+  Excalidraw tag `v0.15.0` for more
+  consistent output, and testing.
 - Supported Node versions: `>=18.0.0 <19.0.0 || >=20.0.0 <21.0.0 || >=21.0.0 <22.0.0 || >=22.0.0 <23.0.0` (See
   [./package.json](https://github.com/realazthat/excalidraw-brute-export-cli/blob/v0.3.0/package.json)). These versions were chosen from
   current supported and upcoming versions of node, from
@@ -142,7 +145,8 @@ And the resulting image (svg):
 
 ### Tested on
 
-- WSL2 Ubuntu 20.04, Node `v20.12.1 `.
+- WSL2 Ubuntu 20.04, Node `v20.12.1` using Excalidraw at
+  tag `v0.15.0`.
 
 ## 🚸 Gotchas and Limitations
 
@@ -153,6 +157,36 @@ And the resulting image (svg):
   - If this is a persistent problem, please open an issue
     [here](https://github.com/realazthat/excalidraw-brute-export-cli/issues/new)
     and upload the diagram (zip it if necessary).
+- <https://excalidraw.com> is a moving target as it gets updated. You can
+  alternatively run your own excalidraw at a specific git tag, and point to it
+  with the `--url` option.
+
+  - Unfortunately, as of `2024/05/05` the Excalidraw project doesn't regularly
+    update its docker image (See
+    <https://hub.docker.com/r/excalidraw/excalidraw/tags>,
+    [excalidraw/issues/7893](https://github.com/excalidraw/excalidraw/issues/7893),
+    [excalidraw/issues/7403](https://github.com/excalidraw/excalidraw/issues/7403)).
+  - Unfortunately, as of `2024/05/05` the Excalidraw project's Dockerfile is
+    frequently broken (See
+    [excalidraw/issues/7582](https://github.com/excalidraw/excalidraw/issues/7582),
+    [excalidraw/pull/7806](https://github.com/excalidraw/excalidraw/pull/7806),
+    [excalidraw/pull/7430](https://github.com/excalidraw/excalidraw/pull/7430),
+    [excalidraw/pull/7502](https://github.com/excalidraw/excalidraw/pull/7502)).
+    - According to
+      [excalidraw/issues/7582#issuecomment-1900651112](https://github.com/excalidraw/excalidraw/issues/7582#issuecomment-1900651112)
+      `v0.15.0` (from `2023/04/18`) is the last tag that builds.
+  - Here is how to run your own Excalidraw instance at
+    `v0.15.0`:
+
+    ```bash
+    # First build the image.
+    git clone https://github.com/excalidraw/excalidraw.git
+    cd excalidraw
+    git checkout "v0.15.0"
+    docker build -t "my-excalidraw-image:v0.15.0" .
+
+    docker run -dit --name "your-instance-name" -p "my-excalidraw-image:v0.15.0"
+    ```
 
 ## 🤏 Versioning
 
@@ -169,10 +203,25 @@ This project is licensed under the MIT License - see the
 ### Development environment: Linux-like
 
 - For running `pre.sh` (Linux-like environment).
-  - Requires nodejs (for act).
-  - Requires Go (to run act).
-  - docker (for act).
-- For running `pre.sh` (Linux-like environment).
+
+  - From [./.github/dependencies.yml](https://github.com/realazthat/excalidraw-brute-export-cli/blob/v0.3.0/.github/dependencies.yml), which is used for
+    the GH Action to do a fresh install of everything:
+
+    ```yaml
+    bash: scripts.
+    findutils: scripts.
+    grep: tests.
+    xxd: tests.
+    git: scripts, tests.
+    xxhash: scripts (changeguard).
+    rsync: out-of-directory test.
+    expect: for `unbuffer`, useful to grab and compare ansi color symbols.
+    jq: dependency for [yq](https://github.com/kislyuk/yq), which is used to generate
+      the README; the README generator needs to use `tomlq` (which is a part of `yq`)
+      to query `pyproject.toml`.
+
+    ```
+
   - Requires `pyenv`, or an exact matching version of python as in
     [scripts/.python-version](https://github.com/realazthat/excalidraw-brute-export-cli/blob/v0.3.0/scripts/.python-version) (which is currently
     `3.8.0 `).
@@ -181,11 +230,14 @@ This project is licensed under the MIT License - see the
     [./README.md](https://github.com/realazthat/excalidraw-brute-export-cli/blob/v0.3.0/README.md) generation, which uses `tomlq` (from the
     [yq](https://github.com/kislyuk/yq) package) to include version strings from
     [./scripts/pyproject.toml](https://github.com/realazthat/excalidraw-brute-export-cli/blob/v0.3.0/scripts/pyproject.toml).
-  - `bash`, `grep`, `awk`, `sed` `xxd`, `git`, `xxhash`, `rsync` (for
-    tests/workflows).
-  - Requires nodejs (for act).
-  - Requires Go (to run act).
-  - docker (for act).
+  - act (to run the GH Action locally):
+    - Requires nodejs.
+    - Requires Go.
+    - docker.
+  - Generate animation:
+    - docker
+  - Tests
+    - docker, to serve Excalidraw.
 
 ### Commit Process
 
