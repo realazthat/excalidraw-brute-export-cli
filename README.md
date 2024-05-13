@@ -146,7 +146,7 @@ And the resulting image (svg):
 
 <!----><img src="README.help.generated.svg" alt="Output of `npx excalidraw-brute-export-cli --help`" /><!---->
 
-## Running Excalidraw locally
+## 🐳 Running Excalidraw locally
 
 - <https://excalidraw.com> is a moving target as it gets updated. You can
   alternatively run your own excalidraw at a specific git tag, and point to it
