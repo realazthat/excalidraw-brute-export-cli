@@ -5,16 +5,21 @@ set -e -x -v -u -o pipefail
 SCRIPT_DIR=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
 source "${SCRIPT_DIR}/utilities/common.sh"
 
+IDEAL_EXCALIDRAW_TAG=$(cat .github/.excalidraw-tag)
+IDEAL_NODE_VERSION="v20.12.1"
+WANTED_NODE_VERSION=$(cat .nvmrc)
+
 export PYTHON_VERSION_PATH="${PWD}/scripts/.python-version"
 export TOML="${PWD}/scripts/pyproject.toml"
-export EXCALIDRAW_BRUTE_EXPORT_CLI_URL=${EXCALIDRAW_BRUTE_EXPORT_CLI_URL-"http://localhost:59876"}
+export EXCALIDRAW_TAG=${EXCALIDRAW_TAG-"${IDEAL_EXCALIDRAW_TAG}"}
 
 # This variable will be 1 when we are the ideal version in the GH action matrix.
 IDEAL="0"
-WANTED_NODE_VERSION=$(cat .nvmrc)
 
-if [[ "${WANTED_NODE_VERSION}" == "v20.12.1" && "${EXCALIDRAW_BRUTE_EXPORT_CLI_URL}" == "http://localhost:59876" ]]; then
+if [[ "${WANTED_NODE_VERSION}" == "${IDEAL_NODE_VERSION}" && "${EXCALIDRAW_TAG}" == "${IDEAL_EXCALIDRAW_TAG}" ]]; then
   IDEAL="1"
+  export EXCALIDRAW_PORT=59876
+  export EXCALIDRAW_INSTANCE_NAME="test-excalidraw"
 fi
 
 if [[ -z "${GITHUB_ACTIONS:-}" ]]; then
@@ -40,7 +45,11 @@ npm install
 
 EXTRA=dev bash scripts/utilities/pin-extra-reqs.sh
 npm run genversion
-bash scripts/run-excalidraw.sh
+source scripts/run-excalidraw.sh
+if [[ -z "${EXCALIDRAW_BRUTE_EXPORT_CLI_URL}" ]]; then
+  echo -e "${RED}EXCALIDRAW_BRUTE_EXPORT_CLI_URL is not set${NC}"
+  exit 1
+fi
 bash scripts/run-all-examples.sh
 bash scripts/format.sh
 bash scripts/run-ood-smoke-test.sh

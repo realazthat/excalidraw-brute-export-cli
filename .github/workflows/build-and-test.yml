@@ -18,11 +18,25 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        node-version: [18.20.2, 20.12.1, 21.7.3, 22.0.0]
-        EXCALIDRAW_BRUTE_EXPORT_CLI_URL:
-          - http://localhost:59876,
-          - https://excalidraw.com,
+        node-version:
+          - 18.20.2
+          - 20.12.1
+          - 21.7.3
+          - 22.0.0
+        EXCALIDRAW_TAG:
+          - 0.15.0
+          - https://excalidraw.com
     steps:
+    - name: Generate dynamic matrix hash
+      id: generate_hash
+      run: |
+        MATRIX_VARS=$(echo '${{ toJSON(matrix) }}')
+        MATRIX_HASH=$(echo -n "$MATRIX_VARS" | md5sum | awk '{print $1}')
+        echo "MATRIX_HASH=$MATRIX_HASH" >> $GITHUB_ENV
+    - name: Unique Matrix ID
+      run: |
+        GH_ACTION_UNIQUE_ID="${{ github.run_id }}-$MATRIX_HASH"
+        echo "GH_ACTION_UNIQUE_ID=$GH_ACTION_UNIQUE_ID" >> $GITHUB_ENV
     - uses: actions/checkout@v4
     - name: Set up Node
       uses: actions/setup-node@v4
@@ -49,7 +63,9 @@ jobs:
     #     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
     - name: Run everything
       run: |
+        npm install -g npm@latest
         npm install
         npx playwright install-deps
         npx playwright install firefox
+        export EXCALIDRAW_INSTANCE_NAME=test-excalidraw-$GH_ACTION_UNIQUE_ID
         bash scripts/pre.sh
