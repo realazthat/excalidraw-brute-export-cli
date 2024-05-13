@@ -119,12 +119,29 @@ npx playwright install firefox
 
 Example:
 
-<!--{{ shell('npx excalidraw-brute-export-cli -i ./examples/simple.excalidraw --background 1 --embed-scene 0 --dark-mode 0 --scale 1 --format svg -o "./README.example.output.svg"',
+{% set example_cmd='
+npx excalidraw-brute-export-cli \\
+  -i ./examples/simple.excalidraw \\
+  --background 1 \\
+  --embed-scene 0 \\
+  --dark-mode 0 \\
+  --scale 1 \\
+  --format svg \\
+  -o "./README.example.output.svg"
+' | trim %}
+
+```bash
+# Use this command:
+{{ example_cmd | safe }}
+```
+
+<!--{{ shell('bash -c \'%s\'' | format(example_cmd),
              rich='README.example.terminal.svg',
              rich_alt='Example output',
              rich_bg_color='black',
              rich_cols=120,
-             decomentify=True) }}-->
+             decomentify=True,
+             include_args=False) }}-->
 
 And the resulting image (svg):
 
@@ -138,6 +155,57 @@ And the resulting image (svg):
              rich_bg_color='black',
              rich_cols=120,
              decomentify=True) }}-->
+
+## Running Excalidraw locally
+
+- <https://excalidraw.com> is a moving target as it gets updated. You can
+  alternatively run your own excalidraw at a specific git tag, and point to it
+  with the `--url` option, for more reproducible results.
+
+  - Unfortunately, as of `2024/05/05` the Excalidraw project doesn't regularly
+    update its docker image (See
+    <https://hub.docker.com/r/excalidraw/excalidraw/tags>,
+    [excalidraw/issues/7893](https://github.com/excalidraw/excalidraw/issues/7893),
+    [excalidraw/issues/7403](https://github.com/excalidraw/excalidraw/issues/7403)).
+  - Unfortunately, as of `2024/05/05` the Excalidraw project's Dockerfile is
+    frequently broken (See
+    [excalidraw/issues/7582](https://github.com/excalidraw/excalidraw/issues/7582),
+    [excalidraw/pull/7806](https://github.com/excalidraw/excalidraw/pull/7806),
+    [excalidraw/pull/7430](https://github.com/excalidraw/excalidraw/pull/7430),
+    [excalidraw/pull/7502](https://github.com/excalidraw/excalidraw/pull/7502)).
+    - According to
+      [excalidraw/issues/7582#issuecomment-1900651112](https://github.com/excalidraw/excalidraw/issues/7582#issuecomment-1900651112)
+      `v0.15.0` (from `2023/04/18`) is the last tag that builds.
+
+- Here is how to run your own Excalidraw instance at Excalidraw tag
+  `{{rawsnippet('./.github/.excalidraw-tag')|trim}}`:
+
+```bash
+# First build the image. Do this once.
+git clone https://github.com/excalidraw/excalidraw.git
+cd excalidraw
+git checkout "{{rawsnippet('./.github/.excalidraw-tag')|trim}}"
+docker build -t "my-excalidraw-image:{{rawsnippet('./.github/.excalidraw-tag')|trim}}" .
+
+# Now we'll run Excalidraw in a container instance.
+
+# Delete the old instance if it exists.
+docker rm -f "your-instance-name" || true
+
+# Replace 59876 with your desired port.
+docker run -dit --name "your-instance-name" -p 59876:80 "my-excalidraw-image:{{rawsnippet('./.github/.excalidraw-tag')|trim}}"
+
+# Visit your instance at http://localhost:59876
+
+# Use the --url option to point to your instance.
+npx excalidraw-brute-export-cli \
+  ...
+  --url "http://localhost:59876" \
+  ...
+
+# Or, set `EXCALIDRAW_BRUTE_EXPORT_CLI_URL` in your environment and leave out
+# the --url option.
+```
 
 ## ✅ Requirements
 
@@ -164,36 +232,6 @@ And the resulting image (svg):
   - If this is a persistent problem, please open an issue
     [here](https://github.com/realazthat/excalidraw-brute-export-cli/issues/new)
     and upload the diagram (zip it if necessary).
-- <https://excalidraw.com> is a moving target as it gets updated. You can
-  alternatively run your own excalidraw at a specific git tag, and point to it
-  with the `--url` option.
-
-  - Unfortunately, as of `2024/05/05` the Excalidraw project doesn't regularly
-    update its docker image (See
-    <https://hub.docker.com/r/excalidraw/excalidraw/tags>,
-    [excalidraw/issues/7893](https://github.com/excalidraw/excalidraw/issues/7893),
-    [excalidraw/issues/7403](https://github.com/excalidraw/excalidraw/issues/7403)).
-  - Unfortunately, as of `2024/05/05` the Excalidraw project's Dockerfile is
-    frequently broken (See
-    [excalidraw/issues/7582](https://github.com/excalidraw/excalidraw/issues/7582),
-    [excalidraw/pull/7806](https://github.com/excalidraw/excalidraw/pull/7806),
-    [excalidraw/pull/7430](https://github.com/excalidraw/excalidraw/pull/7430),
-    [excalidraw/pull/7502](https://github.com/excalidraw/excalidraw/pull/7502)).
-    - According to
-      [excalidraw/issues/7582#issuecomment-1900651112](https://github.com/excalidraw/excalidraw/issues/7582#issuecomment-1900651112)
-      `v0.15.0` (from `2023/04/18`) is the last tag that builds.
-  - Here is how to run your own Excalidraw instance at
-    `{{rawsnippet('./.github/.excalidraw-tag')|trim}}`:
-
-    ```bash
-    # First build the image.
-    git clone https://github.com/excalidraw/excalidraw.git
-    cd excalidraw
-    git checkout "{{rawsnippet('./.github/.excalidraw-tag')|trim}}"
-    docker build -t "my-excalidraw-image:{{rawsnippet('./.github/.excalidraw-tag')|trim}}" .
-
-    docker run -dit --name "your-instance-name" -p "my-excalidraw-image:{{rawsnippet('./.github/.excalidraw-tag')|trim}}"
-    ```
 
 ## 🤏 Versioning
 
