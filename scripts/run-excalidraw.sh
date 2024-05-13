@@ -35,11 +35,13 @@ trap cleanup EXIT
 
 DOCKER_IMAGE_EXISTS=$(docker images -q "${IMAGE_NAME}:${EXCALIDRAW_TAG}" | wc -l)
 if [[ "${DOCKER_IMAGE_EXISTS}" -eq 0 ]]; then
+  OLD_PWD="${PWD}"
   cd "${TMP_DIR}"
   git clone https://github.com/excalidraw/excalidraw.git
   cd excalidraw
   git checkout "${EXCALIDRAW_TAG}"
   docker build -t "${IMAGE_NAME}:${EXCALIDRAW_TAG}" .
+  cd "${OLD_PWD}"
 fi
 docker rm -f "${EXCALIDRAW_INSTANCE_NAME}" || true
 docker run -dit --name "${EXCALIDRAW_INSTANCE_NAME}" -p "${EXCALIDRAW_PORT}:80" "${IMAGE_NAME}:${EXCALIDRAW_TAG}"
