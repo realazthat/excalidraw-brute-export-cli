@@ -3,7 +3,7 @@
 set -e -x -v -u -o pipefail
 
 SCRIPT_DIR=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
-source "${SCRIPT_DIR}/utilities/common.sh"
+source "${SCRIPT_DIR}/common.sh"
 
 CACHE_SERVER_PATH="${PWD}/.cache/act/cache-server-path"
 ACTION_CACHE_PATH="${PWD}/.cache/act/action-cache"
@@ -22,7 +22,11 @@ git checkout-index --all --prefix="${ACT_PROJECT_PATH}/"
 chmod -R 555 "${ACT_PROJECT_PATH}"
 cd "${ACT_PROJECT_PATH}"
 
-go run github.com/nektos/act@c79f59f802673f00911bea93db15b83f5bf3507b \
+# Use --bind to keep the directory persistent, useful if you need to check the
+# contents of the directory after the run for why it failed. However, if you
+# do use --bind, you will need to manually clean up the directory after the run,
+# because it uses root to create the directory and files.
+go run github.com/nektos/act@988556065a83743f17de54adf6c3b7f3cac28e78 \
   push \
   --use-new-action-cache \
   --cache-server-path "${CACHE_SERVER_PATH}" \

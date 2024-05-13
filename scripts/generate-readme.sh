@@ -7,6 +7,13 @@ SCRIPT_DIR=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
 source "${SCRIPT_DIR}/utilities/common.sh"
 
 ################################################################################
+EXCALIDRAW_BRUTE_EXPORT_CLI_URL=${EXCALIDRAW_BRUTE_EXPORT_CLI_URL:-}
+if [[ -z "${EXCALIDRAW_BRUTE_EXPORT_CLI_URL}" ]]; then
+  echo -e "${RED}EXCALIDRAW_BRUTE_EXPORT_CLI_URL is not set${NC}"
+  exit 1
+fi
+export EXCALIDRAW_BRUTE_EXPORT_CLI_URL
+################################################################################
 PYTHON_VERSION_PATH=${PWD}/scripts/.python-version \
   VENV_PATH=${PWD}/.cache/scripts/.venv \
   source "${PROJ_PATH}/scripts/utilities/ensure-venv.sh"
@@ -54,3 +61,9 @@ python -m snipinator.cli \
   -o "${PROJ_PATH}/README.md" \
   --rm --force --create --chmod-ro
 ################################################################################
+LAST_VERSION=$(node -p "require('./package.json').version")
+python -m mdremotifier.cli \
+  -i "${PROJ_PATH}/README.md" \
+  --url-prefix "https://github.com/realazthat/excalidraw-brute-export-cli/blob/v${LAST_VERSION}/" \
+  --img-url-prefix "https://raw.githubusercontent.com/realazthat/excalidraw-brute-export-cli/v${LAST_VERSION}/" \
+  -o "${PROJ_PATH}/.github/README.remotified.md"

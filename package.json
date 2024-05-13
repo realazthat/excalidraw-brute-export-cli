@@ -1,12 +1,12 @@
 {
   "name": "excalidraw-brute-export-cli",
   "description": "💪🔨🎭 Export Excalidraw diagrams to SVG or PNG using a headless browser, using the exact same export process as Excalidraw itself",
-  "readme": "README.md",
+  "readme": ".github/README.remotified.md",
   "bin": {
     "excalidraw-brute-export-cli": "./src/main.js"
   },
   "type": "module",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "scripts": {
     "format": "npx prettier --write package.json && npx prettier --write src/ && npx prettier --write --parser markdown \"LICENSE.md\" \"README.md.jinja2\" --write",
     "genversion": "genversion --esm lib/version.js",

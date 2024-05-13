@@ -18,9 +18,25 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        node-version: [18.20.2, 20.12.1, 21.7.3, 22.0.0]
-
+        node-version:
+          - 18.20.2
+          - 20.12.1
+          - 21.7.3
+          - 22.0.0
+        EXCALIDRAW_TAG:
+          - 0.15.0
+          - https://excalidraw.com
     steps:
+    - name: Generate dynamic matrix hash
+      id: generate_hash
+      run: |
+        MATRIX_VARS=$(echo '${{ toJSON(matrix) }}')
+        MATRIX_HASH=$(echo -n "$MATRIX_VARS" | md5sum | awk '{print $1}')
+        echo "MATRIX_HASH=$MATRIX_HASH" >> $GITHUB_ENV
+    - name: Unique Matrix ID
+      run: |
+        GH_ACTION_UNIQUE_ID="${{ github.run_id }}-$MATRIX_HASH"
+        echo "GH_ACTION_UNIQUE_ID=$GH_ACTION_UNIQUE_ID" >> $GITHUB_ENV
     - uses: actions/checkout@v4
     - name: Set up Node
       uses: actions/setup-node@v4
@@ -29,28 +45,27 @@ jobs:
     - name: Set up .nvmrc
       run: echo v${{ matrix.node-version }} > .nvmrc
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: 3.8.0
-    - name: Install Bash and other dependencies (Ubuntu)
-      # * bash: scripts.
-      # * xxd: tests.
-      # * git: scripts, tests.
-      # * xxhash: changeguard.
-      # * rsync: out-of-directory test.
-      # * grep: tests.
-      # * expect: for `unbuffer`, useful to grab and compare ansi color symbols.
-      # * jq: dependency for [yq](https://github.com/kislyuk/yq), which is used
-      #   to generate the README.
+    - name: Get Dependencies
       run: |
-        sudo apt-get update && sudo apt-get install -y bash grep xxd git xxhash \
-          rsync expect jq
+        sudo apt-get update && sudo apt-get install -y jq
+        pip install yq
+        APT_DEPS=$(python -m yq -r -c '.dev | keys | join(" ")' .github/dependencies.yml)
+        echo "APT_DEPS=${APT_DEPS}" >> $GITHUB_ENV
+    - name: Install Dependencies (Ubuntu)
+      run: |
+        # See project/.github/dependencies.yml for a list of dependencies.
+        sudo apt-get update && sudo apt-get install -y ${APT_DEPS}
     # - name: Install nvm
     #   run: |
     #     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
     - name: Run everything
       run: |
+        npm install -g npm@latest
         npm install
         npx playwright install-deps
         npx playwright install firefox
+        export EXCALIDRAW_INSTANCE_NAME=test-excalidraw-$GH_ACTION_UNIQUE_ID
         bash scripts/pre.sh
