@@ -57,7 +57,7 @@ export CLI_WIDTH=120
 export LINES=40
 export COLUMNS=120
 python -m snipinator.cli \
-  -t "${PROJ_PATH}/README.md.jinja2" \
+  -t "${PROJ_PATH}/.github/README.md.jinja2" \
   -o "${PROJ_PATH}/README.md" \
   --rm --force --create --chmod-ro
 ################################################################################
