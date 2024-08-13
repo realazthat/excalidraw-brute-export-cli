@@ -133,14 +133,14 @@ npx excalidraw-brute-export-cli \
   --dark-mode 0 \
   --scale 1 \
   --format svg \
-  -o "./README.example.output.svg"
+  -o "./.github/README.example.output.svg"
 ```
 
 <!-- --><img alt="Example output" src="https://raw.githubusercontent.com/realazthat/excalidraw-brute-export-cli/v0.3.2/.github/README.example.terminal.svg"/><!-- -->
 
 And the resulting image (svg):
 
-<img alt="Simple Excalidraw Diagram as a SVG" src="https://raw.githubusercontent.com/realazthat/excalidraw-brute-export-cli/v0.3.2/README.example.output.svg" width="400"/>
+<img alt="Simple Excalidraw Diagram as a SVG" src="https://raw.githubusercontent.com/realazthat/excalidraw-brute-export-cli/v0.3.2/.github/README.example.output.svg" width="400"/>
 
 ## 💻 Command Line Options
 
