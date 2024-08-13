@@ -259,7 +259,7 @@ This project is licensed under the MIT License - see the
 
   - Requires `pyenv`, or an exact matching version of python as in
     [scripts/.python-version](https://github.com/realazthat/excalidraw-brute-export-cli/blob/v0.3.1/scripts/.python-version) (which is currently
-    `3.8.0 `).
+    `3.8.18 `).
   - `jq`, ([installation](https://jqlang.github.io/jq/)) required for
     [yq](https://github.com/kislyuk/yq), which is itself required for our
     [./README.md](https://github.com/realazthat/excalidraw-brute-export-cli/blob/v0.3.1/README.md) generation, which uses `tomlq` (from the

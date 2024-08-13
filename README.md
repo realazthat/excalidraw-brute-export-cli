@@ -259,7 +259,7 @@ This project is licensed under the MIT License - see the
 
   - Requires `pyenv`, or an exact matching version of python as in
     [scripts/.python-version](scripts/.python-version) (which is currently
-    `3.8.0
+    `3.8.18
 `).
   - `jq`, ([installation](https://jqlang.github.io/jq/)) required for
     [yq](https://github.com/kislyuk/yq), which is itself required for our
