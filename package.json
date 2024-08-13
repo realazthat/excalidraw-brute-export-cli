@@ -6,7 +6,7 @@
     "excalidraw-brute-export-cli": "./src/main.js"
   },
   "type": "module",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "scripts": {
     "format": "npx prettier --write package.json && npx prettier --write src/ && npx prettier --write --parser markdown \"LICENSE.md\" \".github/README.md.jinja2\" --write",
     "genversion": "genversion --esm lib/version.js",
