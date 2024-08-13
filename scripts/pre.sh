@@ -50,10 +50,9 @@ if [[ -z "${EXCALIDRAW_BRUTE_EXPORT_CLI_URL}" ]]; then
   echo -e "${RED}EXCALIDRAW_BRUTE_EXPORT_CLI_URL is not set${NC}"
   exit 1
 fi
-bash scripts/run-all-examples.sh
-bash scripts/format.sh
+
+bash scripts/generate.sh
 bash scripts/run-ood-smoke-test.sh
-bash scripts/generate-readme.sh
 if [[ -z "${GITHUB_ACTIONS:-}" ]]; then
   bash scripts/utilities/act.sh
   bash scripts/precommit.sh
