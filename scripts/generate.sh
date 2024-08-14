@@ -16,6 +16,11 @@ PYTHON_VERSION_PATH=${PWD}/scripts/.python-version \
   bash "${PROJ_PATH}/scripts/utilities/ensure-reqs.sh"
 ################################################################################
 
+npm install
+source scripts/run-excalidraw.sh
+
+
+npm run genversion
 bash scripts/format.sh
 bash scripts/run-all-examples.sh
 bash scripts/generate-readme.sh

@@ -7,12 +7,18 @@ BLUE='\033[0;34m'
 RED='\033[0;31m'
 NC='\033[0m'
 
-EXCALIDRAW_TAG=${EXCALIDRAW_TAG:-}
+IDEAL_NODE_VERSION="v20.12.1"
+WANTED_NODE_VERSION=$(cat .nvmrc)
+
+IDEAL_EXCALIDRAW_TAG=$(cat .github/.excalidraw-tag)
+EXCALIDRAW_TAG=${EXCALIDRAW_TAG:-IDEAL_EXCALIDRAW_TAG}
+
 EXCALIDRAW_INSTANCE_NAME=${EXCALIDRAW_INSTANCE_NAME:-"test-excalidraw"}
 EXCALIDRAW_PORT=${EXCALIDRAW_PORT:-}
 IMAGE_NAME="test-excalidraw"
 
 if [[ -z "${EXCALIDRAW_TAG}" ]]; then
+
   echo -e "${RED}EXCALIDRAW_TAG is not set, set it to an excalidraw github tag, or the string 'https://excalidraw.com'.${NC}"
   exit 1
 fi
@@ -24,7 +30,11 @@ if [[ "${EXCALIDRAW_TAG}" = "https://excalidraw.com" ]]; then
 fi
 
 if [[ -z "${EXCALIDRAW_PORT}" ]]; then
-  EXCALIDRAW_PORT=$(python3 -c 'import socket; s=socket.socket(); s.bind(("",0)); print(s.getsockname()[1]); s.close()')
+  if [[ -z "${GITHUB_ACTIONS:-}" ]]; then
+    EXCALIDRAW_PORT=59876
+  else
+    EXCALIDRAW_PORT=$(python3 -c 'import socket; s=socket.socket(); s.bind(("",0)); print(s.getsockname()[1]); s.close()')
+  fi
 fi
 
 TMP_DIR=$(mktemp -d)
