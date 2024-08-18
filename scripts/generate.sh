@@ -17,7 +17,9 @@ PYTHON_VERSION_PATH=${PWD}/scripts/.python-version \
 ################################################################################
 
 npm install
-source scripts/run-excalidraw.sh
+if [[ -z "${EXCALIDRAW_BRUTE_EXPORT_CLI_URL:-}" ]]; then
+  source scripts/run-excalidraw.sh
+fi
 
 
 npm run genversion
