@@ -9,6 +9,7 @@ NC='\033[0m'
 
 IDEAL_NODE_VERSION="v20.12.1"
 WANTED_NODE_VERSION=$(cat .nvmrc)
+ACTUAL_NODE_VERSION=$(node --version)
 
 IDEAL_EXCALIDRAW_TAG=$(cat .github/.excalidraw-tag)
 EXCALIDRAW_TAG=${EXCALIDRAW_TAG:-${IDEAL_EXCALIDRAW_TAG}}
@@ -30,7 +31,7 @@ if [[ "${EXCALIDRAW_TAG}" = "https://excalidraw.com" ]]; then
 fi
 
 if [[ -z "${EXCALIDRAW_PORT}" ]]; then
-  if [[ -z "${GITHUB_ACTIONS:-}" ]]; then
+  if [[ "${IDEAL_NODE_VERSION}" == "${WANTED_NODE_VERSION}" && "${WANTED_NODE_VERSION}" == "${ACTUAL_NODE_VERSION}" ]]; then
     EXCALIDRAW_PORT=59876
   else
     EXCALIDRAW_PORT=$(python3 -c 'import socket; s=socket.socket(); s.bind(("",0)); print(s.getsockname()[1]); s.close()')
