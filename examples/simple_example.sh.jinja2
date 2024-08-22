@@ -1,0 +1,72 @@
+{%- if True -%}
+#!/bin/bash
+# https://gist.github.com/mohanpedala/1e2ff5661761d3abd0385e8223e16425
+set -e -x -v -u -o pipefail
+set +v
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+PS4="${GREEN}$ ${NC}"
+
+EXCALIDRAW_BRUTE_EXPORT_CLI_URL=${EXCALIDRAW_BRUTE_EXPORT_CLI_URL:-}
+if [[ -z "${EXCALIDRAW_BRUTE_EXPORT_CLI_URL}" ]]; then
+  echo -e "${RED}EXCALIDRAW_BRUTE_EXPORT_CLI_URL is not set${NC}"
+  exit 1
+fi
+
+{% endif -%}
+
+{#- example_type: {docker-remote, docker-local, npm-module} -#}
+{#- docker_image_name: str -#}
+{#- module_name: str -#}
+{#- cmd: str -#}
+
+{%- macro abort(error) -%}
+    {{ None['[ERROR] ' ~ error][0] }}
+{%- endmacro -%}
+
+{%- if example_type in ['docker-remote', 'docker-local'] -%}
+  {% set cmd='docker run --rm --tty \\\n  -u \"$(id -u):$(id -g)\" \\\n  -v \"${PWD}:/data\" \\\n  ' ~ docker_image_name %}
+{%- elif example_type=='npm-module' -%}
+  {% set cmd='npx ' ~ module_name %}
+{%- else -%}
+  {{ abort('example_type is unknown value: ' ~ example_type) }}
+{%- endif -%}
+
+{%- if example_type in ['docker-remote', 'docker-local'] %}
+
+# Don't run this in act/GH actions because act doesn't play with with nested
+# docker; the paths mess up.
+if [[ -n "${GITHUB_ACTIONS:-}" ]]; then
+  echo -e "${YELLOW}This script is not meant to be run in GitHub Actions.${NC}"
+  exit 0
+fi
+
+{% endif-%}
+
+: ECHO_SNIPPET_START
+# SNIPPET_START
+{% if example_type in ['docker-local'] -%}
+docker build -t {{docker_image_name|safe}} .
+
+{% endif -%}
+
+{% if example_type in ['docker-remote'] -%}
+# Use the published images at ghcr.io/realazthat/snipinator.
+{% endif -%}
+{% if example_type in ['docker-local', 'docker-remote'] -%}
+# /data in the docker image is the working directory, so paths are simpler.
+{% endif -%}
+{{cmd|safe}} \
+  -i ./examples/simple.excalidraw \
+  --background 1 \
+  --embed-scene 1 \
+  --dark-mode 0 \
+  --scale 1 \
+  --format png \
+  -o "./examples/simple_example_output.png"
+
+ls "./examples/simple_example_output.png"
+
+# SNIPPET_END
+: ECHO_SNIPPET_END

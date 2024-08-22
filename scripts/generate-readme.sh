@@ -12,7 +12,6 @@ if [[ -z "${EXCALIDRAW_BRUTE_EXPORT_CLI_URL}" ]]; then
   echo -e "${RED}EXCALIDRAW_BRUTE_EXPORT_CLI_URL is not set${NC}"
   exit 1
 fi
-export EXCALIDRAW_BRUTE_EXPORT_CLI_URL
 ################################################################################
 PYTHON_VERSION_PATH=${PWD}/scripts/.python-version \
   VENV_PATH=${PWD}/.cache/scripts/.venv \

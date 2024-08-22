@@ -24,6 +24,7 @@ fi
 
 npm run genversion
 bash scripts/format.sh
+bash scripts/generate-examples.sh
 bash scripts/run-all-examples.sh
 bash scripts/generate-readme.sh
 ################################################################################

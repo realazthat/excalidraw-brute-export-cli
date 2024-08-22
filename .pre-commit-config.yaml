@@ -18,7 +18,7 @@ repos:
   - id: detect-private-key
   - id: double-quote-string-fixer
   - id: end-of-file-fixer
-    exclude: ^.*\.(md|svg)$
+    exclude: ^.*\.(md|svg|sh)$
   - id: fix-byte-order-marker
   - id: mixed-line-ending
   - id: name-tests-test
