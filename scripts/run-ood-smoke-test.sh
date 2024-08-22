@@ -73,7 +73,7 @@ echo -e "${GREEN}Success: excalidraw-brute-export-cli installed successfully${NC
 
 npx --no-install excalidraw-brute-export-cli --version
 npx --no-install excalidraw-brute-export-cli --help
-bash examples/simple.sh
+bash examples/simple_example.sh
 echo -e "${GREEN}Success: excalidraw-brute-export-cli smoke test ran successfully${NC}"
 
 echo -e "${GREEN}${BASH_SOURCE[0]}: Tests ran successfully${NC}"
