@@ -29,8 +29,15 @@ SOURCE: `.github/README.md.jinja2`.
     <a href="#-features">🎇Features</a> &nbsp;&bull;&nbsp;
     <a href="#-installation">🏠Installation</a> &nbsp;&bull;&nbsp;
     <a href="#-usage">🚜Usage</a> &nbsp;&bull;&nbsp;
-    <a href="#-command-line-options">💻CLI</a> &nbsp;&bull;&nbsp;
-    <a href="#-requirements">✅Requirements</a> &nbsp;&bull;&nbsp;
+    <a href="#-command-line-options">💻CLI</a>
+  </strong>
+</p>
+<p align="center">
+  <strong>
+    <a href="#-requirements">✅Requirements</a>
+    &nbsp;&bull;&nbsp;
+    <a href="#-docker-image">🐳Docker</a>
+    &nbsp;&bull;&nbsp;
     <a href="#-gotchas-and-limitations">🚸Gotchas</a>
   </strong>
 </p>
@@ -217,6 +224,59 @@ npx excalidraw-brute-export-cli \
 
 - WSL2 Ubuntu 20.04, Node `v20.12.1` using Excalidraw at
   tag `v0.15.0`.
+
+## 🐳 Docker Image
+
+Docker images are published to [ghcr.io/realazthat/excalidraw-brute-export-cli][49] at each
+tag.
+
+<!---->
+```bash
+
+# Use the published images at ghcr.io/realazthat/snipinator.
+# /data in the docker image is the working directory, so paths are simpler.
+docker run --rm --tty \
+  -u "$(id -u):$(id -g)" \
+  -v "${PWD}:/data" \
+  ghcr.io/realazthat/excalidraw-brute-export-cli:v0.3.2 \
+  -i ./examples/simple.excalidraw \
+  --background 1 \
+  --embed-scene 0 \
+  --dark-mode 0 \
+  --scale 1 \
+  --format svg \
+  -o "./examples/simple_example_output.svg"
+
+ls "./examples/simple_example_output.svg"
+
+```
+<!---->
+
+If you want to build the image yourself, you can use the Dockerfile in the
+repository.
+
+<!---->
+```bash
+
+docker build -t my-excalidraw-brute-export-cli-image .
+
+# /data in the docker image is the working directory, so paths are simpler.
+docker run --rm --tty \
+  -u "$(id -u):$(id -g)" \
+  -v "${PWD}:/data" \
+  my-excalidraw-brute-export-cli-image \
+  -i ./examples/simple.excalidraw \
+  --background 1 \
+  --embed-scene 0 \
+  --dark-mode 0 \
+  --scale 1 \
+  --format svg \
+  -o "./examples/simple_example_output.svg"
+
+ls "./examples/simple_example_output.svg"
+
+```
+<!---->
 
 ## 🚸 Gotchas and Limitations
 
