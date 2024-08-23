@@ -122,10 +122,9 @@ npx playwright install firefox
 
 Example:
 
-
-
+<!---->
 ```bash
-# Use this command:
+
 npx excalidraw-brute-export-cli \
   -i ./examples/simple.excalidraw \
   --background 1 \
@@ -133,14 +132,20 @@ npx excalidraw-brute-export-cli \
   --dark-mode 0 \
   --scale 1 \
   --format svg \
-  -o "./.github/README.example.output.svg"
-```
+  -o "./examples/simple_example_output.svg"
 
-<!----><img src=".github/README.example.terminal.svg" alt="Example output" /><!---->
+ls "./examples/simple_example_output.svg"
+
+```
+<!---->
+
+<!---->
+<img src=".github/README.simple_example.log.svg" alt="Output of `bash ./examples/simple_example.sh`" />
+<!---->
 
 And the resulting image (svg):
 
-<img src="./.github/README.example.output.svg" alt="Simple Excalidraw Diagram as a SVG" width="400" />
+<img src="./examples/simple_example_output.svg" alt="Simple Excalidraw Diagram as a SVG" width="400" />
 
 ## 💻 Command Line Options
 

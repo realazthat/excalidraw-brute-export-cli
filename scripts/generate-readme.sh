@@ -28,6 +28,7 @@ NODE_VERSION_PATH=${PWD}/.nvmrc \
 
 bash scripts/format.sh
 
+(
 # FORCE_COLOR and TERM are set, to produce consistent results across different
 # systems.
 #
@@ -55,10 +56,19 @@ export TERM=dumb
 export CLI_WIDTH=120
 export LINES=40
 export COLUMNS=120
+
+
+# Try to make terminal output as consistent as possible.
+TERM=xterm-256color COLUMNS=160 LINES=40 \
+PS4="${GREEN}$ ${NC}" unbuffer bash -x ./examples/simple_example.sh \
+  > .github/simple_example.log 2>&1
+
+
 python -m snipinator.cli \
   -t "${PROJ_PATH}/.github/README.md.jinja2" \
   -o "${PROJ_PATH}/README.md" \
   --rm --force --create --chmod-ro
+)
 ################################################################################
 LAST_VERSION=$(node -p "require('./package.json').version")
 python -m mdremotifier.cli \

@@ -22,13 +22,13 @@ fi
 npx excalidraw-brute-export-cli \
   -i ./examples/simple.excalidraw \
   --background 1 \
-  --embed-scene 1 \
+  --embed-scene 0 \
   --dark-mode 0 \
   --scale 1 \
-  --format png \
-  -o "./examples/simple_example_output.png"
+  --format svg \
+  -o "./examples/simple_example_output.svg"
 
-ls "./examples/simple_example_output.png"
+ls "./examples/simple_example_output.svg"
 
 # SNIPPET_END
 : ECHO_SNIPPET_END

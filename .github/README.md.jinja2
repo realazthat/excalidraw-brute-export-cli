@@ -119,33 +119,27 @@ npx playwright install firefox
 
 Example:
 
-{% set example_cmd='
-npx excalidraw-brute-export-cli \\
-  -i ./examples/simple.excalidraw \\
-  --background 1 \\
-  --embed-scene 0 \\
-  --dark-mode 0 \\
-  --scale 1 \\
-  --format svg \\
-  -o "./.github/README.example.output.svg"
-' | trim %}
+<!--{{snippet('./examples/simple_example.sh',
+              start='# SNIPPET_START',
+              end='\n# SNIPPET_END',
+              backtickify='bash',
+              decomentify='nl')|trim}}-->
 
-```bash
-# Use this command:
-{{ example_cmd | safe }}
-```
-
-<!--{{ shell('bash -c \'%s\'' | format(example_cmd),
-             rich='README.example.terminal.svg',
-             rich_alt='Example output',
-             rich_bg_color='black',
-             rich_cols=120,
-             decomentify=True,
-             include_args=False) }}-->
+<!--{{ shell('cat ./.github/simple_example.log',
+               start=': ECHO_SNIPPET_START',
+               end='^.*: ECHO_SNIPPET_END',
+               regex='MULTILINE',
+               rich='README.simple_example.log.svg',
+               rich_alt='Output of `bash ./examples/simple_example.sh`',
+               rich_bg_color='black',
+               rich_term='xterm-256color',
+               rich_cols=160,
+               include_args=False,
+               decomentify='nl') }}-->
 
 And the resulting image (svg):
 
-<img src="./.github/README.example.output.svg" alt="Simple Excalidraw Diagram as a SVG" width="400" />
+<img src="./examples/simple_example_output.svg" alt="Simple Excalidraw Diagram as a SVG" width="400" />
 
 ## 💻 Command Line Options
 
