@@ -59,7 +59,7 @@ export COLUMNS=120
 
 
 # Try to make terminal output as consistent as possible.
-TERM=xterm-256color COLUMNS=160 LINES=40 \
+FORCE_COLOR=3 TERM=dumb CLI_WIDTH=120 COLUMNS=120 LINES=40 \
 PS4="${GREEN}$ ${NC}" unbuffer bash -x ./examples/simple_example.sh \
   > .github/simple_example.log 2>&1
 
