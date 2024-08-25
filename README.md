@@ -29,8 +29,15 @@ SOURCE: `.github/README.md.jinja2`.
     <a href="#-features">🎇Features</a> &nbsp;&bull;&nbsp;
     <a href="#-installation">🏠Installation</a> &nbsp;&bull;&nbsp;
     <a href="#-usage">🚜Usage</a> &nbsp;&bull;&nbsp;
-    <a href="#-command-line-options">💻CLI</a> &nbsp;&bull;&nbsp;
-    <a href="#-requirements">✅Requirements</a> &nbsp;&bull;&nbsp;
+    <a href="#-command-line-options">💻CLI</a>
+  </strong>
+</p>
+<p align="center">
+  <strong>
+    <a href="#-requirements">✅Requirements</a>
+    &nbsp;&bull;&nbsp;
+    <a href="#-docker-image">🐳Docker</a>
+    &nbsp;&bull;&nbsp;
     <a href="#-gotchas-and-limitations">🚸Gotchas</a>
   </strong>
 </p>
@@ -111,7 +118,7 @@ exact same export process as Excalidraw itself**
 npm install -g excalidraw-brute-export-cli
 
 # Or install globally, direct from GitHub:
-npm install -g https://github.com/realazthat/excalidraw-brute-export-cli.git#v0.3.2
+npm install -g https://github.com/realazthat/excalidraw-brute-export-cli.git#v0.4.0
 
 # Might prompt for root.
 npx playwright install-deps
@@ -122,10 +129,9 @@ npx playwright install firefox
 
 Example:
 
-
-
+<!---->
 ```bash
-# Use this command:
+
 npx excalidraw-brute-export-cli \
   -i ./examples/simple.excalidraw \
   --background 1 \
@@ -133,14 +139,20 @@ npx excalidraw-brute-export-cli \
   --dark-mode 0 \
   --scale 1 \
   --format svg \
-  -o "./README.example.output.svg"
-```
+  -o "./examples/simple_example_output.svg"
 
-<!----><img src=".github/README.example.terminal.svg" alt="Example output" /><!---->
+ls "./examples/simple_example_output.svg"
+
+```
+<!---->
+
+<!---->
+<img src=".github/README.simple_example.log.svg" alt="Output of `bash ./examples/simple_example.sh`" />
+<!---->
 
 And the resulting image (svg):
 
-<img src="./README.example.output.svg" alt="Simple Excalidraw Diagram as a SVG" width="400" />
+<img src="./examples/simple_example_output.svg" alt="Simple Excalidraw Diagram as a SVG" width="400" />
 
 ## 💻 Command Line Options
 
@@ -212,6 +224,59 @@ npx excalidraw-brute-export-cli \
 
 - WSL2 Ubuntu 20.04, Node `v20.12.1` using Excalidraw at
   tag `v0.15.0`.
+
+## 🐳 Docker Image
+
+Docker images are published to [ghcr.io/realazthat/excalidraw-brute-export-cli][49] at each
+tag.
+
+<!---->
+```bash
+
+# Use the published images at ghcr.io/realazthat/snipinator.
+# /data in the docker image is the working directory, so paths are simpler.
+docker run --rm --tty \
+  -u "$(id -u):$(id -g)" \
+  -v "${PWD}:/data" \
+  ghcr.io/realazthat/excalidraw-brute-export-cli:v0.4.0 \
+  -i ./examples/simple.excalidraw \
+  --background 1 \
+  --embed-scene 0 \
+  --dark-mode 0 \
+  --scale 1 \
+  --format svg \
+  -o "./examples/simple_example_output.svg"
+
+ls "./examples/simple_example_output.svg"
+
+```
+<!---->
+
+If you want to build the image yourself, you can use the Dockerfile in the
+repository.
+
+<!---->
+```bash
+
+docker build -t my-excalidraw-brute-export-cli-image .
+
+# /data in the docker image is the working directory, so paths are simpler.
+docker run --rm --tty \
+  -u "$(id -u):$(id -g)" \
+  -v "${PWD}:/data" \
+  my-excalidraw-brute-export-cli-image \
+  -i ./examples/simple.excalidraw \
+  --background 1 \
+  --embed-scene 0 \
+  --dark-mode 0 \
+  --scale 1 \
+  --format svg \
+  -o "./examples/simple_example_output.svg"
+
+ls "./examples/simple_example_output.svg"
+
+```
+<!---->
 
 ## 🚸 Gotchas and Limitations
 
@@ -349,17 +414,17 @@ These instructions are for maintainers of the project.
 [15]:
   https://github.com/realazthat/excalidraw-brute-export-cli/actions/workflows/build-and-test.yml
 [16]:
-  https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v0.3.2/master?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v0.4.0/master?style=plastic
 [17]:
-  https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v0.3.2/develop?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v0.4.0/develop?style=plastic
 [18]:
-  https://github.com/realazthat/excalidraw-brute-export-cli/compare/v0.3.2...master
+  https://github.com/realazthat/excalidraw-brute-export-cli/compare/v0.4.0...master
 [19]:
-  https://github.com/realazthat/excalidraw-brute-export-cli/compare/v0.3.2...develop
+  https://github.com/realazthat/excalidraw-brute-export-cli/compare/v0.4.0...develop
 [20]:
-  https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v0.3.2/develop?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v0.4.0/develop?style=plastic
 [21]:
-  https://github.com/realazthat/excalidraw-brute-export-cli/compare/v0.3.2...develop
+  https://github.com/realazthat/excalidraw-brute-export-cli/compare/v0.4.0...develop
 [22]:
   https://img.shields.io/github/last-commit/realazthat/excalidraw-brute-export-cli/master?style=plastic
 [23]:

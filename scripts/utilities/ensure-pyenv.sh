@@ -66,9 +66,9 @@ echo -e "${YELLOW}This may take a while${NC}"
 echo -e "${YELLOW}WANTED_PYTHON_VERSION: ${WANTED_PYTHON_VERSION}${NC}"
 pyenv install --skip-existing "${WANTED_PYTHON_VERSION}"
 
-ACTUAL_PYTHON_VERSION=$(python --version)
+ACTUAL_PYTHON_VERSION=$(python3 --version)
 echo -e "${YELLOW}ACTUAL_PYTHON_VERSION: ${ACTUAL_PYTHON_VERSION}${NC}"
-WHICH_PYTHON=$(command -v python)
+WHICH_PYTHON=$(command -v python3)
 echo -e "${YELLOW}WHICH_PYTHON: ${WHICH_PYTHON}${NC}"
 ls ~/.pyenv/versions/
 

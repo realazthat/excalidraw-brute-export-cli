@@ -16,7 +16,15 @@ PYTHON_VERSION_PATH=${PWD}/scripts/.python-version \
   bash "${PROJ_PATH}/scripts/utilities/ensure-reqs.sh"
 ################################################################################
 
+npm install
+if [[ -z "${EXCALIDRAW_BRUTE_EXPORT_CLI_URL:-}" ]]; then
+  source scripts/run-excalidraw.sh
+fi
+
+
+npm run genversion
 bash scripts/format.sh
+bash scripts/generate-examples.sh
 bash scripts/run-all-examples.sh
 bash scripts/generate-readme.sh
 ################################################################################

@@ -12,7 +12,6 @@ if [[ -z "${EXCALIDRAW_BRUTE_EXPORT_CLI_URL}" ]]; then
   echo -e "${RED}EXCALIDRAW_BRUTE_EXPORT_CLI_URL is not set${NC}"
   exit 1
 fi
-export EXCALIDRAW_BRUTE_EXPORT_CLI_URL
 ################################################################################
 PYTHON_VERSION_PATH=${PWD}/scripts/.python-version \
   VENV_PATH=${PWD}/.cache/scripts/.venv \
@@ -29,6 +28,7 @@ NODE_VERSION_PATH=${PWD}/.nvmrc \
 
 bash scripts/format.sh
 
+(
 # FORCE_COLOR and TERM are set, to produce consistent results across different
 # systems.
 #
@@ -56,10 +56,19 @@ export TERM=dumb
 export CLI_WIDTH=120
 export LINES=40
 export COLUMNS=120
+
+
+# Try to make terminal output as consistent as possible.
+FORCE_COLOR=3 TERM=dumb CLI_WIDTH=120 COLUMNS=120 LINES=40 \
+PS4="${GREEN}$ ${NC}" unbuffer bash -x ./examples/simple_example.sh \
+  > .github/simple_example.log 2>&1
+
+
 python -m snipinator.cli \
   -t "${PROJ_PATH}/.github/README.md.jinja2" \
   -o "${PROJ_PATH}/README.md" \
-  --rm --force --create --chmod-ro
+  --rm --force --create --chmod-ro --skip-unchanged
+)
 ################################################################################
 LAST_VERSION=$(node -p "require('./package.json').version")
 python -m mdremotifier.cli \

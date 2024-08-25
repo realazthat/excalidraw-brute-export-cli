@@ -18,8 +18,6 @@ IDEAL="0"
 
 if [[ "${WANTED_NODE_VERSION}" == "${IDEAL_NODE_VERSION}" && "${EXCALIDRAW_TAG}" == "${IDEAL_EXCALIDRAW_TAG}" ]]; then
   IDEAL="1"
-  export EXCALIDRAW_PORT=59876
-  export EXCALIDRAW_INSTANCE_NAME="test-excalidraw"
 fi
 
 if [[ -z "${GITHUB_ACTIONS:-}" ]]; then
@@ -45,10 +43,8 @@ npm install
 
 EXTRA=dev bash scripts/utilities/pin-extra-reqs.sh
 npm run genversion
-source scripts/run-excalidraw.sh
-if [[ -z "${EXCALIDRAW_BRUTE_EXPORT_CLI_URL}" ]]; then
-  echo -e "${RED}EXCALIDRAW_BRUTE_EXPORT_CLI_URL is not set${NC}"
-  exit 1
+if [[ -z "${EXCALIDRAW_BRUTE_EXPORT_CLI_URL:-}" ]]; then
+  source scripts/run-excalidraw.sh
 fi
 
 bash scripts/generate.sh
