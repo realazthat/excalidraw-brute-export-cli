@@ -67,7 +67,7 @@ PS4="${GREEN}$ ${NC}" unbuffer bash -x ./examples/simple_example.sh \
 python -m snipinator.cli \
   -t "${PROJ_PATH}/.github/README.md.jinja2" \
   -o "${PROJ_PATH}/README.md" \
-  --rm --force --create --chmod-ro
+  --rm --force --create --chmod-ro --skip-unchanged
 )
 ################################################################################
 LAST_VERSION=$(node -p "require('./package.json').version")
