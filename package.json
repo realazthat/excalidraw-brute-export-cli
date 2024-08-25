@@ -10,7 +10,7 @@
   "scripts": {
     "format": "npx prettier --write package.json && npx prettier --write src/ && npx prettier --write --parser markdown \"LICENSE.md\" \".github/README.md.jinja2\" --write",
     "genversion": "genversion --esm lib/version.js",
-    "prepublishOnly": "git diff --cached --name-only | xargs npm pack --dry-run"
+    "prepublishOnly": "cp -f .github/README.remotified.md README.md && git diff --cached --name-only | xargs npm pack --dry-run"
   },
   "dependencies": {
     "@caporal/core": "^2.0.7",
