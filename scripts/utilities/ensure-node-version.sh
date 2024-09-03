@@ -19,7 +19,7 @@ NODE_VERSION=$(node --version)
 
 
 if [[ "${NODE_VERSION}" != "${EXPECTED_NODE_VERSION}" ]]; then
-  echo -e "${RED}Expected python version ${EXPECTED_NODE_VERSION}, got ${NODE_VERSION}${NC}"
+  echo -e "${RED}Expected node version ${EXPECTED_NODE_VERSION}, got ${NODE_VERSION}${NC}"
   [[ $0 == "${BASH_SOURCE[0]}" ]] && EXIT="exit" || EXIT="return"
   ${EXIT} 1
 fi
