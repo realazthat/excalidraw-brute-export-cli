@@ -33,7 +33,7 @@ fi
 docker run --rm --tty \
   -u "$(id -u):$(id -g)" \
   -v "${PWD}:/data" \
-  ghcr.io/realazthat/excalidraw-brute-export-cli:v0.3.2 \
+  ghcr.io/realazthat/excalidraw-brute-export-cli:v0.4.0 \
   -i ./examples/simple.excalidraw \
   --background 1 \
   --embed-scene 0 \

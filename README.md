@@ -118,7 +118,7 @@ exact same export process as Excalidraw itself**
 npm install -g excalidraw-brute-export-cli
 
 # Or install globally, direct from GitHub:
-npm install -g https://github.com/realazthat/excalidraw-brute-export-cli.git#v0.3.2
+npm install -g https://github.com/realazthat/excalidraw-brute-export-cli.git#v0.4.0
 
 # Might prompt for root.
 npx playwright install-deps
@@ -238,7 +238,7 @@ tag.
 docker run --rm --tty \
   -u "$(id -u):$(id -g)" \
   -v "${PWD}:/data" \
-  ghcr.io/realazthat/excalidraw-brute-export-cli:v0.3.2 \
+  ghcr.io/realazthat/excalidraw-brute-export-cli:v0.4.0 \
   -i ./examples/simple.excalidraw \
   --background 1 \
   --embed-scene 0 \
@@ -414,17 +414,17 @@ These instructions are for maintainers of the project.
 [15]:
   https://github.com/realazthat/excalidraw-brute-export-cli/actions/workflows/build-and-test.yml
 [16]:
-  https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v0.3.2/master?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v0.4.0/master?style=plastic
 [17]:
-  https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v0.3.2/develop?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v0.4.0/develop?style=plastic
 [18]:
-  https://github.com/realazthat/excalidraw-brute-export-cli/compare/v0.3.2...master
+  https://github.com/realazthat/excalidraw-brute-export-cli/compare/v0.4.0...master
 [19]:
-  https://github.com/realazthat/excalidraw-brute-export-cli/compare/v0.3.2...develop
+  https://github.com/realazthat/excalidraw-brute-export-cli/compare/v0.4.0...develop
 [20]:
-  https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v0.3.2/develop?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v0.4.0/develop?style=plastic
 [21]:
-  https://github.com/realazthat/excalidraw-brute-export-cli/compare/v0.3.2...develop
+  https://github.com/realazthat/excalidraw-brute-export-cli/compare/v0.4.0...develop
 [22]:
   https://img.shields.io/github/last-commit/realazthat/excalidraw-brute-export-cli/master?style=plastic
 [23]:
