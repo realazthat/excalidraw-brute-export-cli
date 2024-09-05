@@ -26,7 +26,7 @@ fi
 {%- endmacro -%}
 
 {%- if example_type in ['docker-remote', 'docker-local'] -%}
-  {% set cmd='docker run --rm --tty \\\n  -u \"$(id -u):$(id -g)\" \\\n  -v \"${PWD}:/data\" \\\n  ' ~ docker_image_name %}
+  {% set cmd='docker run --rm --tty \\\n  -u \"$(id -u):$(id -g)\" \\\n  -v \"${PWD}:/data\" \\\n  -e EXCALIDRAW_BRUTE_EXPORT_CLI_URL --network host \\\n  ' ~ docker_image_name %}
 {%- elif example_type=='npm-module' -%}
   {% set cmd='npx ' ~ module_name %}
 {%- else -%}

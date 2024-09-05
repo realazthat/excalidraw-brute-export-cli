@@ -34,6 +34,7 @@ docker build -t my-excalidraw-brute-export-cli-image .
 docker run --rm --tty \
   -u "$(id -u):$(id -g)" \
   -v "${PWD}:/data" \
+  -e EXCALIDRAW_BRUTE_EXPORT_CLI_URL --network host \
   my-excalidraw-brute-export-cli-image \
   -i ./examples/simple.excalidraw \
   --background 1 \

@@ -20,7 +20,7 @@ SOURCE: `.github/README.md.jinja2`.
 <!-- Icons from https://lucide.dev/icons/users -->
 <!-- Icons from https://lucide.dev/icons/laptop-minimal -->
 
-![**Audience:** Developers][4] ![**Platform:** Linux][5]
+![**Audience:** Developers][2] ![**Platform:** Linux][3]
 
 </div>
 
@@ -44,9 +44,9 @@ SOURCE: `.github/README.md.jinja2`.
 
 <div align="center">
 
-![Top language][6] [![GitHub License][7]][8] [![npm - version][9]][10]
+![Top language][4] [![GitHub License][5]][6] [![npm - version][7]][8]
 
-[![Node Version][24]][25]
+[![Node Version][9]][10]
 
 **Export Excalidraw diagrams to SVG or PNG using a headless browser, using the
 exact same export process as Excalidraw itself**
@@ -59,15 +59,15 @@ exact same export process as Excalidraw itself**
 
 |                   | Status                      | Stable                    | Unstable                  |                    |
 | ----------------- | --------------------------- | ------------------------- | ------------------------- | ------------------ |
-| **[Master][11]**  | [![Build and Test][13]][15] | [![since tagged][16]][18] |                           | ![last commit][22] |
-| **[Develop][12]** | [![Build and Test][14]][15] | [![since tagged][17]][19] | [![since tagged][20]][21] | ![last commit][23] |
+| **[Master][11]**  | [![Build and Test][12]][13] | [![since tagged][14]][15] |                           | ![last commit][16] |
+| **[Develop][17]** | [![Build and Test][18]][13] | [![since tagged][19]][20] | [![since tagged][21]][22] | ![last commit][23] |
 
 </div>
 
 <img alt="Demo" src="https://raw.githubusercontent.com/realazthat/excalidraw-brute-export-cli/v0.4.0/.github/demo.gif" width="100%"/>
 
-- ❔ What: Uses [🎭 playwright][2] to run a headless firefox browser to export
-  [Excalidraw][3] diagrams to svg/png files. Using a browser bypasses certain
+- ❔ What: Uses [🎭 playwright][24] to run a headless firefox browser to export
+  [Excalidraw][25] diagrams to svg/png files. Using a browser bypasses certain
   bugs that happen with other projects that attempt to export by emulating the
   DOM (without a browser).
 - Why:
@@ -152,7 +152,7 @@ ls "./examples/simple_example_output.svg"
 
 And the resulting image (svg):
 
-<img alt="Simple Excalidraw Diagram as a SVG" src="https://raw.githubusercontent.com/realazthat/excalidraw-brute-export-cli/v0.4.0/examples/simple_example_output.svg" width="400"/>
+<img alt="Simple Excalidraw Diagram as an SVG" src="https://raw.githubusercontent.com/realazthat/excalidraw-brute-export-cli/v0.4.0/examples/simple_example_output.svg" width="400"/>
 
 ## 💻 Command Line Options
 
@@ -238,6 +238,7 @@ tag.
 docker run --rm --tty \
   -u "$(id -u):$(id -g)" \
   -v "${PWD}:/data" \
+  -e EXCALIDRAW_BRUTE_EXPORT_CLI_URL --network host \
   ghcr.io/realazthat/excalidraw-brute-export-cli:v0.4.0 \
   -i ./examples/simple.excalidraw \
   --background 1 \
@@ -264,6 +265,7 @@ docker build -t my-excalidraw-brute-export-cli-image .
 docker run --rm --tty \
   -u "$(id -u):$(id -g)" \
   -v "${PWD}:/data" \
+  -e EXCALIDRAW_BRUTE_EXPORT_CLI_URL --network host \
   my-excalidraw-brute-export-cli-image \
   -i ./examples/simple.excalidraw \
   --background 1 \
@@ -383,34 +385,32 @@ These instructions are for maintainers of the project.
    `git checkout develop && git merge master`.
 9. Push the develop branch to GitHub: `git push origin develop`.
 
-[1]: https://raw.githubusercontent.com/realazthat/excalidraw-brute-export-cli/v0.4.0/.github/logo-exported.svg
-[2]: https://playwright.dev/
-[3]: https://excalidraw.com/
-
 <!-- Logo from https://lucide.dev/icons/users -->
-
-[4]: https://img.shields.io/badge/Audience-Developers|Users-0A1E1E?style=plastic&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXVzZXJzIj48cGF0aCBkPSJNMTYgMjF2LTJhNCA0IDAgMCAwLTQtNEg2YTQgNCAwIDAgMC00IDR2MiIvPjxjaXJjbGUgY3g9IjkiIGN5PSI3IiByPSI0Ii8+PHBhdGggZD0iTTIyIDIxdi0yYTQgNCAwIDAgMC0zLTMuODciLz48cGF0aCBkPSJNMTYgMy4xM2E0IDQgMCAwIDEgMCA3Ljc1Ii8+PC9zdmc+
 
 <!-- Logo from https://lucide.dev/icons/laptop-minimal -->
 
-[5]: https://img.shields.io/badge/Platform-Node-0A1E1E?style=plastic&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWxhcHRvcC1taW5pbWFsIj48cmVjdCB3aWR0aD0iMTgiIGhlaWdodD0iMTIiIHg9IjMiIHk9IjQiIHJ4PSIyIiByeT0iMiIvPjxsaW5lIHgxPSIyIiB4Mj0iMjIiIHkxPSIyMCIgeTI9IjIwIi8+PC9zdmc+
-[6]: https://img.shields.io/github/languages/top/realazthat/excalidraw-brute-export-cli.svg?&cacheSeconds=28800&style=plastic&color=0A1E1E
-[7]: https://img.shields.io/github/license/realazthat/excalidraw-brute-export-cli?style=plastic&color=0A1E1E
-[8]: https://github.com/realazthat/excalidraw-brute-export-cli/blob/v0.4.0/LICENSE.md
-[9]: https://img.shields.io/npm/v/excalidraw-brute-export-cli?style=plastic&color=0A1E1E
+[1]: https://raw.githubusercontent.com/realazthat/excalidraw-brute-export-cli/v0.4.0/.github/logo-exported.svg
+[2]: https://img.shields.io/badge/Audience-Developers|Users-0A1E1E?style=plastic&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXVzZXJzIj48cGF0aCBkPSJNMTYgMjF2LTJhNCA0IDAgMCAwLTQtNEg2YTQgNCAwIDAgMC00IDR2MiIvPjxjaXJjbGUgY3g9IjkiIGN5PSI3IiByPSI0Ii8+PHBhdGggZD0iTTIyIDIxdi0yYTQgNCAwIDAgMC0zLTMuODciLz48cGF0aCBkPSJNMTYgMy4xM2E0IDQgMCAwIDEgMCA3Ljc1Ii8+PC9zdmc+
+[3]: https://img.shields.io/badge/Platform-Node-0A1E1E?style=plastic&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWxhcHRvcC1taW5pbWFsIj48cmVjdCB3aWR0aD0iMTgiIGhlaWdodD0iMTIiIHg9IjMiIHk9IjQiIHJ4PSIyIiByeT0iMiIvPjxsaW5lIHgxPSIyIiB4Mj0iMjIiIHkxPSIyMCIgeTI9IjIwIi8+PC9zdmc+
+[4]: https://img.shields.io/github/languages/top/realazthat/excalidraw-brute-export-cli.svg?&cacheSeconds=28800&style=plastic&color=0A1E1E
+[5]: https://img.shields.io/github/license/realazthat/excalidraw-brute-export-cli?style=plastic&color=0A1E1E
+[6]: https://github.com/realazthat/excalidraw-brute-export-cli/blob/v0.4.0/LICENSE.md
+[7]: https://img.shields.io/npm/v/excalidraw-brute-export-cli?style=plastic&color=0A1E1E
+[8]: https://www.npmjs.com/package/excalidraw-brute-export-cli
+[9]: https://img.shields.io/node/v/excalidraw-brute-export-cli?style=plastic&color=0A1E1E
 [10]: https://www.npmjs.com/package/excalidraw-brute-export-cli
 [11]: https://github.com/realazthat/excalidraw-brute-export-cli/tree/master
-[12]: https://github.com/realazthat/excalidraw-brute-export-cli/tree/develop
-[13]: https://img.shields.io/github/actions/workflow/status/realazthat/excalidraw-brute-export-cli/build-and-test.yml?branch=master&style=plastic
-[14]: https://img.shields.io/github/actions/workflow/status/realazthat/excalidraw-brute-export-cli/build-and-test.yml?branch=develop&style=plastic
-[15]: https://github.com/realazthat/excalidraw-brute-export-cli/actions/workflows/build-and-test.yml
-[16]: https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v0.4.0/master?style=plastic
-[17]: https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v0.4.0/develop?style=plastic
-[18]: https://github.com/realazthat/excalidraw-brute-export-cli/compare/v0.4.0...master
-[19]: https://github.com/realazthat/excalidraw-brute-export-cli/compare/v0.4.0...develop
-[20]: https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v0.4.0/develop?style=plastic
-[21]: https://github.com/realazthat/excalidraw-brute-export-cli/compare/v0.4.0...develop
-[22]: https://img.shields.io/github/last-commit/realazthat/excalidraw-brute-export-cli/master?style=plastic
+[12]: https://img.shields.io/github/actions/workflow/status/realazthat/excalidraw-brute-export-cli/build-and-test.yml?branch=master&style=plastic
+[13]: https://github.com/realazthat/excalidraw-brute-export-cli/actions/workflows/build-and-test.yml
+[14]: https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v0.4.0/master?style=plastic
+[15]: https://github.com/realazthat/excalidraw-brute-export-cli/compare/v0.4.0...master
+[16]: https://img.shields.io/github/last-commit/realazthat/excalidraw-brute-export-cli/master?style=plastic
+[17]: https://github.com/realazthat/excalidraw-brute-export-cli/tree/develop
+[18]: https://img.shields.io/github/actions/workflow/status/realazthat/excalidraw-brute-export-cli/build-and-test.yml?branch=develop&style=plastic
+[19]: https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v0.4.0/develop?style=plastic
+[20]: https://github.com/realazthat/excalidraw-brute-export-cli/compare/v0.4.0...develop
+[21]: https://img.shields.io/github/commits-since/realazthat/excalidraw-brute-export-cli/v0.4.0/develop?style=plastic
+[22]: https://github.com/realazthat/excalidraw-brute-export-cli/compare/v0.4.0...develop
 [23]: https://img.shields.io/github/last-commit/realazthat/excalidraw-brute-export-cli/develop?style=plastic
-[24]: https://img.shields.io/node/v/excalidraw-brute-export-cli?style=plastic&color=0A1E1E
-[25]: https://www.npmjs.com/package/excalidraw-brute-export-cli
+[24]: https://playwright.dev/
+[25]: https://excalidraw.com/

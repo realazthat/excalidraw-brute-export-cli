@@ -33,6 +33,7 @@ fi
 docker run --rm --tty \
   -u "$(id -u):$(id -g)" \
   -v "${PWD}:/data" \
+  -e EXCALIDRAW_BRUTE_EXPORT_CLI_URL --network host \
   ghcr.io/realazthat/excalidraw-brute-export-cli:v0.4.0 \
   -i ./examples/simple.excalidraw \
   --background 1 \

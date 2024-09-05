@@ -15,7 +15,6 @@ export EXCALIDRAW_TAG=${EXCALIDRAW_TAG-"${IDEAL_EXCALIDRAW_TAG}"}
 
 # This variable will be 1 when we are the ideal version in the GH action matrix.
 IDEAL="0"
-
 if [[ "${WANTED_NODE_VERSION}" == "${IDEAL_NODE_VERSION}" && "${EXCALIDRAW_TAG}" == "${IDEAL_EXCALIDRAW_TAG}" ]]; then
   IDEAL="1"
 fi

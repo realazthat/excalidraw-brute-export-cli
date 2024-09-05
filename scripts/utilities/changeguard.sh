@@ -13,7 +13,7 @@ source "${SCRIPT_DIR}/common.sh"
 TOML=${TOML:-"${PROJ_PATH}/pyproject.toml"}
 
 VENV_PATH="${PWD}/.cache/scripts/.venv" source "${PROJ_PATH}/scripts/utilities/ensure-venv.sh"
-TOML=${TOML} EXTRA=dev \
+TOML="${TOML}" EXTRA=dev \
   DEV_VENV_PATH="${PWD}/.cache/scripts/.venv" \
   TARGET_VENV_PATH="${PWD}/.cache/scripts/.venv" \
   bash "${PROJ_PATH}/scripts/utilities/ensure-reqs.sh"

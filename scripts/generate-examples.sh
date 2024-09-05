@@ -15,6 +15,9 @@ PYTHON_VERSION_PATH=${PWD}/scripts/.python-version \
   TARGET_VENV_PATH="${PWD}/.cache/scripts/.venv" \
   bash "${PROJ_PATH}/scripts/utilities/ensure-reqs.sh"
 ################################################################################
+NODE_VERSION_PATH=${PWD}/.nvmrc \
+  bash "${PROJ_PATH}/scripts/utilities/ensure-node-version.sh"
+################################################################################
 
 
 CUSTOM_WARNING=$(cat << 'EOF'

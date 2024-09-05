@@ -27,9 +27,13 @@ parser.add_argument('--toml',
                     required=True,
                     help='Path to the pyproject.toml file')
 parser.add_argument('--extra',
-                    choices=_VALID_EXTRA_NAMES,
+                    type=str,
+                    action='append',
+                    help='Which extra requirements to pin from')
+parser.add_argument('--pin',
+                    type=str,
                     required=True,
-                    help='Which extra requirements to pin (dev/prod)')
+                    help='Which extra requirements to pin to')
 parser.add_argument(
     '--reqs',
     type=Path,
@@ -39,7 +43,8 @@ args = parser.parse_args()
 
 pyproject_path: Path = args.toml
 requirements_path: Path = args.reqs
-extra_name: str = args.extra
+extras: List[str] = args.extra
+pin: str = args.pin
 
 pyproject_data: TOMLDocument = tomlkit.loads(pyproject_path.read_text())
 lines = requirements_path.read_text().splitlines()
@@ -87,15 +92,17 @@ if not isinstance(opt_deps, tomlkit.items.Table):
       f'Invalid pyproject.toml file, expected "project.optional-dependencies" to be a table. Got {type(opt_deps)}.'
   )
 
-if extra_name not in opt_deps:
-  raise ValueError(
-      f'Invalid pyproject.toml file, expected "project.optional-dependencies" to contain {extra_name}.'
-  )
-toml_extra_dependencies = opt_deps[extra_name]
-if not isinstance(toml_extra_dependencies, tomlkit.items.Array):
-  raise ValueError(
-      f'Invalid pyproject.toml file, expected "project.optional-dependencies.{extra_name}" to be an array. Got {type(toml_extra_dependencies)}.'
-  )
+for extra_or_pin in extras + [pin]:
+  if extra_or_pin not in opt_deps:
+    raise ValueError(
+        f'Invalid pyproject.toml file, expected "project.optional-dependencies" to contain {extra_or_pin}.'
+    )
+  toml_extra_dependencies = opt_deps[extra_or_pin]
+  if not isinstance(toml_extra_dependencies, tomlkit.items.Array):
+    raise ValueError(
+        f'Invalid pyproject.toml file, expected "project.optional-dependencies.{extra_or_pin}" to be an array. Got {type(toml_extra_dependencies)}.'
+    )
+
 if sorted(list(toml_extra_dependencies)) == sorted(existing_dependencies):
   print('No changes detected')
   exit(0)
@@ -103,7 +110,7 @@ if sorted(list(toml_extra_dependencies)) == sorted(existing_dependencies):
 toml_extra_dependencies.clear()
 for dep in existing_dependencies:
   toml_extra_dependencies.append(dep)
-opt_deps[extra_name] = toml_extra_dependencies.multiline(True)
+opt_deps[pin] = toml_extra_dependencies.multiline(True)
 
 output = tomlkit.dumps(pyproject_data)
 if output == pyproject_path.read_text():
