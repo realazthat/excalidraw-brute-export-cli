@@ -1,6 +1,5 @@
 FROM node:20.12.1-bullseye-slim
 
-
 WORKDIR /excalidraw-brute-export-cli
 
 RUN apt-get -y update && apt-get -y --no-install-recommends install bash && \
@@ -19,7 +18,7 @@ USER node
 # ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 # ENV PATH=/home/node/.npm-global/bin:$PATH
 WORKDIR /excalidraw-brute-export-cli
-RUN npm install . && npx playwright install
+RUN npm install . && npx playwright install && npx playwright install firefox
 
 # This is where the user will mount their data to.
 WORKDIR /data
